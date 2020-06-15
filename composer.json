@@ -1,0 +1,38 @@
+{
+    "name": "experius/module-csp",
+    "description": "Provide a basic Content Security Policy Allowed List and report blocked resources.",
+    "type": "magento2-module",
+    "license": "OSL-3.0",
+    "authors": [
+        {
+            "name": "Mage2Gen",
+            "email": "info@mage2gen.com"
+        },
+        {
+            "name": "Lewis Voncken",
+            "email": "lewis@experius.nl"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Experius\\Csp\\": ""
+        },
+        "files": [
+            "registration.php"
+        ]
+    },
+    "extra": {
+        "map": [
+            [
+                "csp_reporter.php",
+                "csp_reporter.php"
+            ],
+            [
+                "csp_reporter.php",
+                "pub/csp_reporter.php"
+            ]
+        ]
+    }
+}

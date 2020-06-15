@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Experius\Csp\Api\ReportManagementInterface" type="Experius\Csp\Model\ReportManagement"/>
+	<preference for="Experius\Csp\Api\ReportRepositoryInterface" type="Experius\Csp\Model\ReportRepository"/>
+	<preference for="Experius\Csp\Api\Data\ReportInterface" type="Experius\Csp\Model\Data\Report"/>
+	<preference for="Experius\Csp\Api\Data\ReportSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<virtualType name="Experius\Csp\Model\ResourceModel\Report\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">experius_csp_report</argument>
+			<argument name="resourceModel" xsi:type="string">Experius\Csp\Model\ResourceModel\Report\Collection</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="experius_csp_report_listing_data_source" xsi:type="string">Experius\Csp\Model\ResourceModel\Report\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+	<type name="Magento\Framework\App\Response\HttpInterface">
+		<plugin disabled="false" name="Experius_Csp_Plugin_Magento_Framework_App_Response_HttpInterface" sortOrder="10" type="Experius\Csp\Plugin\Magento\Framework\App\Response\HttpInterface"/>
+	</type>
+</config>

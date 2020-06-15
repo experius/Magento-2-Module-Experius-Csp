@@ -1,0 +1,97 @@
+<?xml version="1.0" ?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+	<argument name="data" xsi:type="array">
+		<item name="js_config" xsi:type="array">
+			<item name="provider" xsi:type="string">experius_csp_report_listing.experius_csp_report_listing_data_source</item>
+		</item>
+	</argument>
+	<settings>
+		<spinner>experius_csp_report_columns</spinner>
+		<deps>
+			<dep>experius_csp_report_listing.experius_csp_report_listing_data_source</dep>
+		</deps>
+	</settings>
+	<dataSource component="Magento_Ui/js/grid/provider" name="experius_csp_report_listing_data_source">
+		<settings>
+			<updateUrl path="mui/index/render"/>
+		</settings>
+		<aclResource>Experius_Csp::report</aclResource>
+		<dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="experius_csp_report_listing_data_source">
+			<settings>
+				<requestFieldName>id</requestFieldName>
+				<primaryFieldName>report_id</primaryFieldName>
+			</settings>
+		</dataProvider>
+	</dataSource>
+	<listingToolbar name="listing_top">
+		<settings>
+			<sticky>true</sticky>
+		</settings>
+		<bookmark name="bookmarks"/>
+		<columnsControls name="columns_controls"/>
+		<filters name="listing_filters"/>
+		<paging name="listing_paging"/>
+	</listingToolbar>
+	<columns name="experius_csp_report_columns">
+		<settings>
+			<editorConfig>
+				<param name="enabled" xsi:type="boolean">false</param>
+			</editorConfig>
+		</settings>
+		<selectionsColumn name="ids">
+			<settings>
+				<indexField>report_id</indexField>
+			</settings>
+		</selectionsColumn>
+		<column name="report_id">
+			<settings>
+				<filter>text</filter>
+				<sorting>asc</sorting>
+				<label translate="true">ID</label>
+			</settings>
+		</column>
+		<column name="document_uri">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Document URI</label>
+			</settings>
+		</column>
+		<column name="referrer">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Referrer</label>
+			</settings>
+		</column>
+		<column name="violated_directive">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Violated Directive</label>
+			</settings>
+		</column>
+		<column name="original_policy">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Original Policy</label>
+			</settings>
+		</column>
+		<column name="blocked_uri">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Blocked URI</label>
+			</settings>
+		</column>
+		<column name="date">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Date</label>
+			</settings>
+		</column>
+		<actionsColumn class="Experius\Csp\Ui\Component\Listing\Column\ReportActions" name="actions">
+			<settings>
+				<indexField>report_id</indexField>
+				<resizeEnabled>false</resizeEnabled>
+				<resizeDefaultWidth>107</resizeDefaultWidth>
+			</settings>
+		</actionsColumn>
+	</columns>
+</listing>
