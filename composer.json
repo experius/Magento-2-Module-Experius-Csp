@@ -27,11 +27,11 @@
         "map": [
             [
                 "csp_reporter.php",
-                "csp_reporter.php"
+                "../../csp_reporter.php"
             ],
             [
                 "csp_reporter.php",
-                "pub/csp_reporter.php"
+                "../../pub/csp_reporter.php"
             ]
         ]
     }
