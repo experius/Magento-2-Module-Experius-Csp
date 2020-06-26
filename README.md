@@ -21,7 +21,7 @@ Provide a basic Content Security Policy Allowed List and when the Resource shoul
 When there is a report found an error message will be show in the admin:
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/experius/Magento-2-Module-Experius-Csp/master/Docs/Screenshots/admin-error-notifications.png" title="Admin Notification Error">
+  <img src="https://raw.githubusercontent.com/experius/Magento-2-Module-Experius-Csp/master/Docs/Screenshots/csp-admin-notification.png" title="Admin Notification Error">
 </p>
 
 ### IMPORTANT: Content Security Policy Report Only Mode

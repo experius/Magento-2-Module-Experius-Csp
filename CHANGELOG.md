@@ -1,3 +1,10 @@
+## 1.2.1 (2020-06-26)
+
+[View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/1.2.1)
+
+*  [DOCS] Updated Screenshot csp-admin-notification.png *(Lewis Voncken)*
+
+
 ## 1.2.0 (2020-06-26)
 
 [View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/1.2.0)
