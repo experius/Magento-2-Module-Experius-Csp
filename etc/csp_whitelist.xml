@@ -47,6 +47,7 @@
                 <value id="px_ads_linkedin_com" type="host">px.ads.linkedin.com</value>
                 <value id="stats_g_doubleclick" type="host">stats.g.doubleclick.net</value>
                 <value id="googleapis" type="host">*.googleapis.com</value>
+                <value id="gstatic" type="host">*.gstatic.com</value>
             </values>
         </policy>
         <policy id="connect-src">
