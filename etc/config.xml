@@ -4,7 +4,6 @@
         <csp>
             <mode>
                 <storefront>
-                    <report_only>0</report_only>
                     <report_uri>/csp_reporter.php</report_uri>
                 </storefront>
                 <admin>
