@@ -48,12 +48,17 @@
                 <value id="stats_g_doubleclick" type="host">stats.g.doubleclick.net</value>
                 <value id="googleapis" type="host">*.googleapis.com</value>
                 <value id="gstatic" type="host">*.gstatic.com</value>
+                <value id="www_linkedin" type="host">www.linkedin.com</value>
+                <value id="linkedin" type="host">linkedin.com</value>
             </values>
         </policy>
         <policy id="connect-src">
             <values>
                 <value id="commerce_adobedc" type="host">commerce.adobedc.net</value>
                 <value id="dotmailer_comapi" type="host">api.comapi.com</value>
+                <value id="google_analytics" type="host">google-analytics.com</value>
+                <value id="www_google_analytics" type="host">www.google-analytics.com</value>
+                <value id="stats_g_doubleclick" type="host">stats.g.doubleclick.net</value>
             </values>
         </policy>
     </policies>
