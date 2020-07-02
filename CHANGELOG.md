@@ -1,3 +1,10 @@
+## 1.2.3 (2020-07-02)
+
+[View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/1.2.3)
+
+*  [TASK] Added google tagmanager to the img-src in the csp_whitelist.xml *(Lewis Voncken)*
+
+
 ## 1.2.2 (2020-06-30)
 
 [View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/1.2.2)
