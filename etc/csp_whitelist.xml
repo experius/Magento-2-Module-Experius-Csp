@@ -52,6 +52,7 @@
                 <value id="linkedin" type="host">linkedin.com</value>
                 <value id="www_googletagmanager_com" type="host">www.googletagmanager.com</value>
                 <value id="googletagmanager_com" type="host">googletagmanager.com</value>
+                <value id="gallery_mailchimp_com" type="host">gallery.mailchimp.com</value>
             </values>
         </policy>
         <policy id="connect-src">

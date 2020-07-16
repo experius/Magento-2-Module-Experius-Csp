@@ -1,3 +1,10 @@
+## 1.2.4 (2020-07-16)
+
+[View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/1.2.4)
+
+*  [FEATURE] added gallery.mailchimp.com to the allowed list for img-src *(Lewis Voncken)*
+
+
 ## 1.2.3 (2020-07-02)
 
 [View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/1.2.3)
