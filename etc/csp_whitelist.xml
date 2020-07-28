@@ -12,6 +12,8 @@
             <values>
                 <value id="fonts_googleapis" type="host">fonts.googleapis.com</value>
                 <value id="fonts_gstatic" type="host">fonts.gstatic.com</value>
+                <value id="hotjar" type="host">*.hotjar.com</value>
+                <value id="zopim" type="host">*.zopim.com</value>
             </values>
         </policy>
         <policy id="script-src">
@@ -29,6 +31,9 @@
                 <value id="chimpstatic" type="host">chimpstatic.com</value>
                 <value id="buckaroo_api" type="host">checkout.buckaroo.nl</value>
                 <value id="adyen" type="host">*.adyen.com</value>
+                 <value id="zopim" type="host">*.zopim.com</value>
+                <value id="hotjar" type="host">*.hotjar.com</value>
+                <value id="zdassets" type="host">*.zdassets.com</value>
             </values>
         </policy>
         <policy id="frame-src">
@@ -36,6 +41,7 @@
                 <value id="dotmailer_cdn_dnky" type="host">cdn.dnky.co</value>
                 <value id="youtube" type="host">youtube.com</value>
                 <value id="www_youtube" type="host">www.youtube.com</value>
+                <value id="hotjar" type="host">*.hotjar.com</value>
             </values>
         </policy>
         <policy id="img-src">
@@ -62,6 +68,11 @@
                 <value id="google_analytics" type="host">google-analytics.com</value>
                 <value id="www_google_analytics" type="host">www.google-analytics.com</value>
                 <value id="stats_g_doubleclick" type="host">stats.g.doubleclick.net</value>
+                 <value id="zdassets" type="host">*.zdassets.com</value>
+                <value id="hotjar-com" type="host">*.hotjar.com</value>
+                <value id="hotjar-io" type="host">*.hotjar.io</value>
+                <value id="zopim" type="host">*.zopim.com</value>
+                <value id="zopim-wss" type="host">wss://*.zopim.com</value>
             </values>
         </policy>
     </policies>
