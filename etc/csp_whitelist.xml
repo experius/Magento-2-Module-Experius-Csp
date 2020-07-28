@@ -42,6 +42,7 @@
                 <value id="youtube" type="host">youtube.com</value>
                 <value id="www_youtube" type="host">www.youtube.com</value>
                 <value id="hotjar" type="host">*.hotjar.com</value>
+                <value id="google" type="host">*.google.com</value>
             </values>
         </policy>
         <policy id="img-src">
