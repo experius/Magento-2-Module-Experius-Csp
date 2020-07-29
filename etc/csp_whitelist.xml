@@ -60,6 +60,8 @@
                 <value id="www_googletagmanager_com" type="host">www.googletagmanager.com</value>
                 <value id="googletagmanager_com" type="host">googletagmanager.com</value>
                 <value id="gallery_mailchimp_com" type="host">gallery.mailchimp.com</value>
+                <value id="amcglobal" type="host">amcglobal.sc.omtrdc.net</value>
+                <value id="everesttech" type="host">cm.everesttech.net</value>
             </values>
         </policy>
         <policy id="connect-src">
@@ -74,6 +76,7 @@
                 <value id="hotjar-io" type="host">*.hotjar.io</value>
                 <value id="zopim" type="host">*.zopim.com</value>
                 <value id="zopim-wss" type="host">wss://*.zopim.com</value>
+                <value id="demdex" type="host">dpm.demdex.net</value>
             </values>
         </policy>
     </policies>
