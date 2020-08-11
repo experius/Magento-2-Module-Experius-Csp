@@ -6,6 +6,8 @@
                 <value id="googleapis" type="host">*.googleapis.com</value>
                 <value id="dotmailer_cdn_dnky" type="host">cdn.dnky.co</value>
                 <value id="buckaroo" type="host">checkout.buckaroo.nl</value>
+                <value id="fontawesome" type="host">*.fontawesome.com</value>
+                <value id="mailchimp" type="host">*.mailchimp.com</value>
             </values>
         </policy>
         <policy id="font-src">
@@ -14,6 +16,7 @@
                 <value id="fonts_gstatic" type="host">fonts.gstatic.com</value>
                 <value id="hotjar" type="host">*.hotjar.com</value>
                 <value id="zopim" type="host">*.zopim.com</value>
+                <value id="fontawesome" type="host">*.fontawesome.com</value>
             </values>
         </policy>
         <policy id="script-src">
@@ -31,9 +34,13 @@
                 <value id="chimpstatic" type="host">chimpstatic.com</value>
                 <value id="buckaroo_api" type="host">checkout.buckaroo.nl</value>
                 <value id="adyen" type="host">*.adyen.com</value>
-                 <value id="zopim" type="host">*.zopim.com</value>
+                <value id="zopim" type="host">*.zopim.com</value>
                 <value id="hotjar" type="host">*.hotjar.com</value>
                 <value id="zdassets" type="host">*.zdassets.com</value>
+                <value id="sendcloud" type="host">*.sendcloud.sc</value>
+                <value id="mailchimp" type="host">*.mailchimp.com</value>
+                <value id="trustedshops" type="host">*.trustedshops.com</value>
+                <value id="fontawesome" type="host">*.fontawesome.com</value>
             </values>
         </policy>
         <policy id="frame-src">
@@ -62,6 +69,7 @@
                 <value id="gallery_mailchimp_com" type="host">gallery.mailchimp.com</value>
                 <value id="amcglobal" type="host">amcglobal.sc.omtrdc.net</value>
                 <value id="everesttech" type="host">cm.everesttech.net</value>
+                <value id="trustedshops" type="host">*.trustedshops.com</value>
             </values>
         </policy>
         <policy id="connect-src">
@@ -71,7 +79,7 @@
                 <value id="google_analytics" type="host">google-analytics.com</value>
                 <value id="www_google_analytics" type="host">www.google-analytics.com</value>
                 <value id="stats_g_doubleclick" type="host">stats.g.doubleclick.net</value>
-                 <value id="zdassets" type="host">*.zdassets.com</value>
+                <value id="zdassets" type="host">*.zdassets.com</value>
                 <value id="hotjar-com" type="host">*.hotjar.com</value>
                 <value id="hotjar-io" type="host">*.hotjar.io</value>
                 <value id="zopim" type="host">*.zopim.com</value>
