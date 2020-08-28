@@ -75,6 +75,7 @@
                 <value id="trustedshops" type="host">*.trustedshops.com</value>
                 <value id="facebook-img" type="host">www.facebook.com</value>
                 <value id="zopim" type="host">*.zopim.com</value>
+                <value id="magentocommerce" type="host">widgets.magentocommerce.com</value>
             </values>
         </policy>
         <policy id="connect-src">
