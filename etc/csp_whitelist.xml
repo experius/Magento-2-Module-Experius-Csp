@@ -93,6 +93,7 @@
                 <value id="zopim-wss" type="host">wss://*.zopim.com</value>
                 <value id="demdex" type="host">dpm.demdex.net</value>
                 <value id="feedbackcompany" type="host">www.feedbackcompany.com</value>
+                <value id="amcglobal" type="host">amcglobal.sc.omtrdc.net</value>
             </values>
         </policy>
         <policy id="form-action">
