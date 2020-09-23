@@ -43,6 +43,7 @@
                 <value id="fontawesome" type="host">*.fontawesome.com</value>
                 <value id="facebook-script" type="host">connect.facebook.net</value>
                 <value id="feedbackcompany" type="host">www.feedbackcompany.com</value>
+                <value id="www_google_analytics" type="host">www.google-analytics.com</value>
             </values>
         </policy>
         <policy id="frame-src">
