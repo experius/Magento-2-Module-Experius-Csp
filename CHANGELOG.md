@@ -1,3 +1,10 @@
+## 1.2.10 (2020-10-15)
+
+[View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/1.2.10)
+
+*  [REFACTOR] [BACI-123] solved errors based on php code sniffer *(Lewis Voncken)*
+
+
 ## 1.2.9 (2020-10-15)
 
 [View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/1.2.9)
