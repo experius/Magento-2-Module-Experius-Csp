@@ -8,6 +8,7 @@
                 <value id="buckaroo" type="host">checkout.buckaroo.nl</value>
                 <value id="fontawesome" type="host">*.fontawesome.com</value>
                 <value id="mailchimp" type="host">*.mailchimp.com</value>
+                <value id="trustpilot" type="host">*.trustpilot.com</value>
             </values>
         </policy>
         <policy id="font-src">
