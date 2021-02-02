@@ -1,3 +1,26 @@
+## 1.2.14 (2021-02-02)
+
+[View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/1.2.14)
+
+*  [FEATURE][DDIJK-229] Added zendesk and newrelic to whitelist to resolve reports for dijkstra *(Quinn Stadens)*
+*  [DOCS] Updated the CHANGELOG.md *(Quinn Stadens)*
+*  CHANGELOG.md changed *(Quinn Stadens)*
+
+
+## 1.2.13 (2020-10-30)
+
+[View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/1.2.13)
+
+*  [FEATURE][PSTR-151] Trustpilot added to style-src in whitelist *(Quinn Stadens)*
+
+
+## 1.2.12 (2020-10-30)
+
+[View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/1.2.12)
+
+*  [FEATURE][PSTR-151] Trustpilot added to whitelist *(Quinn Stadens)*
+
+
 ## 1.2.11 (2020-10-28)
 
 [View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/1.2.11)
