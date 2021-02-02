@@ -8,6 +8,7 @@
                 <value id="buckaroo" type="host">checkout.buckaroo.nl</value>
                 <value id="fontawesome" type="host">*.fontawesome.com</value>
                 <value id="mailchimp" type="host">*.mailchimp.com</value>
+                <value id="trustpilot" type="host">*.trustpilot.com</value>
             </values>
         </policy>
         <policy id="font-src">
@@ -44,6 +45,7 @@
                 <value id="facebook-script" type="host">connect.facebook.net</value>
                 <value id="feedbackcompany" type="host">www.feedbackcompany.com</value>
                 <value id="www_google_analytics" type="host">www.google-analytics.com</value>
+                <value id="trustpilot" type="host">*.trustpilot.com</value>
             </values>
         </policy>
         <policy id="frame-src">
@@ -54,6 +56,7 @@
                 <value id="hotjar" type="host">*.hotjar.com</value>
                 <value id="google" type="host">*.google.com</value>
                 <value id="facebook-frame" type="host">www.facebook.com</value>
+                <value id="trustpilot" type="host">*.trustpilot.com</value>
             </values>
         </policy>
         <policy id="img-src">
