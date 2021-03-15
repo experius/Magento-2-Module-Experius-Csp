@@ -1,14 +1,14 @@
 <?xml version="1.0" ?>
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
 	<table comment="Experius CSP Report Table" engine="innodb" name="experius_csp_report" resource="default">
-		<column comment="Entity Id" identity="true" name="report_id" nullable="false" padding="6" unsigned="true" xsi:type="smallint"/>
+		<column comment="Entity Id" identity="true" name="report_id" nullable="false" padding="6" unsigned="true" xsi:type="int"/>
 		<constraint referenceId="PRIMARY" xsi:type="primary">
 			<column name="report_id"/>
 		</constraint>
 		<column length="255" name="document_uri" nullable="true" xsi:type="varchar"/>
 		<column length="255" name="referrer" nullable="true" xsi:type="varchar"/>
 		<column length="255" name="violated_directive" nullable="true" xsi:type="varchar"/>
-		<column length="255" name="original_policy" nullable="true" xsi:type="varchar"/>
+		<column name="original_policy" nullable="true" xsi:type="text"/>
 		<column length="255" name="blocked_uri" nullable="true" xsi:type="varchar"/>
 		<column name="date" nullable="true" xsi:type="datetime"/>
 		<index referenceId="EXPERIUS_CSP_REPORT_DOCUMENT_URI" indexType="btree">
