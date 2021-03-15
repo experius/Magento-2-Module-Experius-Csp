@@ -47,6 +47,7 @@
                 <value id="www_google_analytics" type="host">www.google-analytics.com</value>
                 <value id="trustpilot" type="host">*.trustpilot.com</value>
                 <value id="newrelic" type="host">*.newrelic.com</value>
+                <value id="newrelic-data" type="host">*.nr-data.net</value>
             </values>
         </policy>
         <policy id="frame-src">
@@ -99,6 +100,7 @@
                 <value id="feedbackcompany" type="host">www.feedbackcompany.com</value>
                 <value id="amcglobal" type="host">amcglobal.sc.omtrdc.net</value>
                 <value id="zendesk" type="host">*.zendesk.com</value>
+                <value id="newrelic-data" type="host">*.nr-data.net</value>
             </values>
         </policy>
         <policy id="form-action">
