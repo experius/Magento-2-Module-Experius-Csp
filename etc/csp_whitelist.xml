@@ -9,6 +9,7 @@
                 <value id="fontawesome" type="host">*.fontawesome.com</value>
                 <value id="mailchimp" type="host">*.mailchimp.com</value>
                 <value id="trustpilot" type="host">*.trustpilot.com</value>
+                <value id="jsdelivr" type="host">cdn.jsdelivr.net</value>
             </values>
         </policy>
         <policy id="font-src">
@@ -48,6 +49,7 @@
                 <value id="trustpilot" type="host">*.trustpilot.com</value>
                 <value id="newrelic" type="host">*.newrelic.com</value>
                 <value id="newrelic-data" type="host">*.nr-data.net</value>
+                <value id="jsdelivr" type="host">cdn.jsdelivr.net</value>
             </values>
         </policy>
         <policy id="frame-src">
@@ -82,6 +84,7 @@
                 <value id="facebook-img" type="host">www.facebook.com</value>
                 <value id="zopim" type="host">*.zopim.com</value>
                 <value id="magentocommerce" type="host">widgets.magentocommerce.com</value>
+                <value id="jsdelivr" type="host">cdn.jsdelivr.net</value>
             </values>
         </policy>
         <policy id="connect-src">
