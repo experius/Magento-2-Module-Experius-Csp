@@ -50,6 +50,8 @@
                 <value id="newrelic" type="host">*.newrelic.com</value>
                 <value id="newrelic-data" type="host">*.nr-data.net</value>
                 <value id="jsdelivr" type="host">cdn.jsdelivr.net</value>
+                <value id="googleoptimize" type="host">www.googleoptimize.com</value>
+                <value id="clarity" type="host">www.clarity.ms</value>
             </values>
         </policy>
         <policy id="frame-src">
@@ -85,6 +87,7 @@
                 <value id="zopim" type="host">*.zopim.com</value>
                 <value id="magentocommerce" type="host">widgets.magentocommerce.com</value>
                 <value id="jsdelivr" type="host">cdn.jsdelivr.net</value>
+                <value id="amcglobal_sc_omtrdc" type="host">amcglobal.sc.omtrdc.net</value>
             </values>
         </policy>
         <policy id="connect-src">
@@ -104,6 +107,8 @@
                 <value id="amcglobal" type="host">amcglobal.sc.omtrdc.net</value>
                 <value id="zendesk" type="host">*.zendesk.com</value>
                 <value id="newrelic-data" type="host">*.nr-data.net</value>
+                <value id="clarity" type="host">www.clarity.ms</value>
+                <value id="dpm_demdex" type="host">dpm.demdex.net</value>
             </values>
         </policy>
         <policy id="form-action">
