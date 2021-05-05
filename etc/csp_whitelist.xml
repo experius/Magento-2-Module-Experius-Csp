@@ -19,6 +19,7 @@
                 <value id="hotjar" type="host">*.hotjar.com</value>
                 <value id="zopim" type="host">*.zopim.com</value>
                 <value id="fontawesome" type="host">*.fontawesome.com</value>
+                <value id="data" type="host">data:</value>
             </values>
         </policy>
         <policy id="script-src">
