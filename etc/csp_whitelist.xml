@@ -28,7 +28,7 @@
                 <value id="www_scripts_google" type="host">www.google.com</value>
                 <value id="scripts_gstatic" type="host">gstatic.com</value>
                 <value id="www_scripts_gstatic" type="host">www.gstatic.com</value>
-                <value id="google_tagmanager" type="host">www.googletagmanager.com</value>
+                <value id="google_tagmanager" type="host">*.googletagmanager.com</value>
                 <value id="googleapis" type="host">*.googleapis.com</value>
                 <value id="dotmailer_cdn_dnky" type="host">cdn.dnky.co</value>
                 <value id="dotmailer_comapi" type="host">api.comapi.com</value>
@@ -44,15 +44,19 @@
                 <value id="mailchimp" type="host">*.mailchimp.com</value>
                 <value id="trustedshops" type="host">*.trustedshops.com</value>
                 <value id="fontawesome" type="host">*.fontawesome.com</value>
-                <value id="facebook-script" type="host">connect.facebook.net</value>
-                <value id="feedbackcompany" type="host">www.feedbackcompany.com</value>
-                <value id="www_google_analytics" type="host">www.google-analytics.com</value>
+                <value id="facebook-script" type="host">*.facebook.net</value>
+                <value id="feedbackcompany" type="host">*.feedbackcompany.com</value>
+                <value id="_google_analytics" type="host">*.google-analytics.com</value>
                 <value id="trustpilot" type="host">*.trustpilot.com</value>
                 <value id="newrelic" type="host">*.newrelic.com</value>
                 <value id="newrelic-data" type="host">*.nr-data.net</value>
                 <value id="jsdelivr" type="host">cdn.jsdelivr.net</value>
                 <value id="googleoptimize" type="host">www.googleoptimize.com</value>
                 <value id="clarity" type="host">www.clarity.ms</value>
+                <value id="datatrics-script" type="host">*.datatrics.com</value>
+                <value id="criteo-net-script" type="host">*.criteo.net</value>
+                <value id="criteo-com-script" type="host">*.criteo.com</value>
+                <value id="youtube-script" type="host">*.youtube.com</value>
             </values>
         </policy>
         <policy id="frame-src">
@@ -62,8 +66,9 @@
                 <value id="www_youtube" type="host">www.youtube.com</value>
                 <value id="hotjar" type="host">*.hotjar.com</value>
                 <value id="google" type="host">*.google.com</value>
-                <value id="facebook-frame" type="host">www.facebook.com</value>
+                <value id="facebook-frame" type="host">*.facebook.com</value>
                 <value id="trustpilot" type="host">*.trustpilot.com</value>
+                <value id="criteo-frame" type="host">*.criteo.com</value>
             </values>
         </policy>
         <policy id="img-src">
@@ -89,6 +94,9 @@
                 <value id="magentocommerce" type="host">widgets.magentocommerce.com</value>
                 <value id="jsdelivr" type="host">cdn.jsdelivr.net</value>
                 <value id="amcglobal_sc_omtrdc" type="host">amcglobal.sc.omtrdc.net</value>
+                <value id="jmango360-img" type="host">*.jmango360.com</value>
+                <value id="datatrics-img" type="host">*.datatrics.com</value>
+                <value id="smaato-img" type="host">*.smaato.net</value>
             </values>
         </policy>
         <policy id="connect-src">
@@ -104,12 +112,14 @@
                 <value id="zopim" type="host">*.zopim.com</value>
                 <value id="zopim-wss" type="host">wss://*.zopim.com</value>
                 <value id="demdex" type="host">dpm.demdex.net</value>
-                <value id="feedbackcompany" type="host">www.feedbackcompany.com</value>
+                <value id="feedbackcompany" type="host">*.feedbackcompany.com</value>
                 <value id="amcglobal" type="host">amcglobal.sc.omtrdc.net</value>
                 <value id="zendesk" type="host">*.zendesk.com</value>
                 <value id="newrelic-data" type="host">*.nr-data.net</value>
                 <value id="clarity" type="host">www.clarity.ms</value>
                 <value id="dpm_demdex" type="host">dpm.demdex.net</value>
+                <value id="facebook-connect" type="host">*.facebook.com</value>
+                <value id="datatrics-connect" type="host">*.datatrics.com</value>
             </values>
         </policy>
         <policy id="form-action">
