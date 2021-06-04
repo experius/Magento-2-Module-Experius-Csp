@@ -20,4 +20,11 @@
 	<type name="Magento\Framework\App\Response\HttpInterface">
 		<plugin disabled="false" name="Experius_Csp_Plugin_Magento_Framework_App_Response_HttpInterface" sortOrder="10" type="Experius\Csp\Plugin\Magento\Framework\App\Response\HttpInterface"/>
 	</type>
+    <type name="Magento\Csp\Model\CompositePolicyCollector">
+        <arguments>
+            <argument name="collectors" xsi:type="array">
+                <item name="200" xsi:type="object">Experius\Csp\Model\Collector\DynamicCollector</item>
+            </argument>
+        </arguments>
+    </type>
 </config>
