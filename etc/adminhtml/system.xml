@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="experius_csp" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+            <label>Experius CSP</label>
+            <tab>experius</tab>
+            <resource>Experius_Csp::config_experius_csp</resource>
+            <group id="general" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                <label>general</label>
+                <field id="add_all_storefront_urls" type="text" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>add_all_storefront_urls</label>
+                    <comment/>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

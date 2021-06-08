@@ -10,6 +10,8 @@ namespace Experius\Csp\Model\Collector;
 use Magento\Csp\Api\PolicyCollectorInterface;
 use Magento\Csp\Model\Policy\FetchPolicy;
 use Magento\Framework\App\ResourceConnection;
+use Magento\Store\Model\ScopeInterface;
+use Magento\Framework\App\Config\ScopeConfigInterface;
 
 /**
  * CSPs dynamically added during the rendering of current page (from .phtml templates for instance).
@@ -27,14 +29,27 @@ class DynamicCollector implements PolicyCollectorInterface
     protected $storeUrls = false;
 
     /**
+     * @var ScopeConfigInterface
+     */
+    protected $scopeConfig;
+
+    /**
      * DynamicCollector constructor.
      * @param ResourceConnection $connection
+     * @param ScopeConfigInterface $scopeConfig
      */
     public function __construct(
-        ResourceConnection $connection
+        ResourceConnection $connection,
+        ScopeConfigInterface $scopeConfig
     )
     {
         $this->connection = $connection;
+        $this->scopeConfig = $scopeConfig;
+    }
+
+    public function isEnabled()
+    {
+        return true;
     }
 
     /**
@@ -42,6 +57,10 @@ class DynamicCollector implements PolicyCollectorInterface
      */
     public function collect(array $defaultPolicies = []): array
     {
+        if (!$this->isEnabled()) {
+            return $defaultPolicies;
+        }
+
         foreach ($defaultPolicies as $policy) {
 
             $policies[] = new FetchPolicy(
@@ -84,6 +103,10 @@ class DynamicCollector implements PolicyCollectorInterface
      */
     public function getStoreUrls()
     {
+        if (!$this->scopeConfig->getValue('experius_csp/general/add_all_storefront_urls')) {
+            return false;
+        }
+
         if ($this->storeUrls) {
             return $this->storeUrls;
         }
