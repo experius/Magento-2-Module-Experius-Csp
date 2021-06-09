@@ -12,5 +12,10 @@
                 </admin>
             </mode>
         </csp>
+        <experius_csp>
+            <general>
+                <add_all_storefront_urls>1</add_all_storefront_urls>
+            </general>
+        </experius_csp>
     </default>
 </config>
