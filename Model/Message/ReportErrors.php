@@ -83,11 +83,6 @@ class ReportErrors implements MessageInterface
         $url = $this->urlBuilder->getUrl('experius_csp/report/index');
         return __(
             '<style>
-                .message-system-short,
-                .message-system-short * {
-                    background-color: #e22626;
-                    color: #fff !important;
-                 }
                  .message-system-collapsible a.csp-error {
                     color: #e22626;
                  }
