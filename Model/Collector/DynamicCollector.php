@@ -57,7 +57,7 @@ class DynamicCollector implements PolicyCollectorInterface
      */
     public function collect(array $defaultPolicies = []): array
     {
-        if (!$this->isEnabled()) {
+        if (!$this->isEnabled() || !$defaultPolicies) {
             return $defaultPolicies;
         }
 
