@@ -14,6 +14,11 @@
                     <label>add_all_storefront_urls</label>
                     <comment>This adds all base urls of the available storefronts for this Magento installation to the csp_whitelist.</comment>
                 </field>
+                <field id="reporting_enabled" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0" translate="label comment">
+                    <label>Reporting enabled</label>
+                    <comment>Disable to stop reporting to database temporarily.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
             </group>
         </section>
     </system>
