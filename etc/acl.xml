@@ -1,13 +1,20 @@
 <?xml version="1.0" ?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
-	<acl>
-		<resources>
-			<resource id="Magento_Backend::admin">
-				<resource id="Experius_Csp::report" sortOrder="10" title="Report">
-					<resource id="Experius_Csp::report_delete" sortOrder="20" title="Delete Report"/>
-					<resource id="Experius_Csp::report_view" sortOrder="40" title="View Report"/>
-				</resource>
-			</resource>
-		</resources>
-	</acl>
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Experius_Csp::report" sortOrder="10" title="Report">
+                    <resource id="Experius_Csp::report_delete" sortOrder="20" title="Delete Report"/>
+                    <resource id="Experius_Csp::report_view" sortOrder="40" title="View Report"/>
+                </resource>
+            </resource>
+            <resource id="Magento_Backend::stores">
+                <resource id="Magento_Backend::stores_settings">
+                    <resource id="Magento_Config::config">
+                        <resource id="Experius_Csp::config_experius_csp" title="Experius Csp Reporting"/>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
 </config>

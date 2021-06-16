@@ -1,15 +1,23 @@
 <?xml version="1.0" ?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
+        <tab id="experius" translate="label" sortOrder="999">
+            <label>Experius</label>
+        </tab>
         <section id="experius_csp" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
             <label>Experius CSP</label>
             <tab>experius</tab>
             <resource>Experius_Csp::config_experius_csp</resource>
             <group id="general" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
-                <label>general</label>
-                <field id="add_all_storefront_urls" type="text" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                <label>General</label>
+                <field id="add_all_storefront_urls" type="text" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label comment">
                     <label>add_all_storefront_urls</label>
-                    <comment/>
+                    <comment>This adds all base urls of the available storefronts for this Magento installation to the csp_whitelist.</comment>
+                </field>
+                <field id="reporting_enabled" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0" translate="label comment">
+                    <label>Reporting enabled</label>
+                    <comment>Disable to stop reporting to database temporarily.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
             </group>
         </section>

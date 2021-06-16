@@ -18,13 +18,20 @@
 		</arguments>
 	</type>
 	<type name="Magento\Framework\App\Response\HttpInterface">
-		<plugin disabled="false" name="Experius_Csp_Plugin_Magento_Framework_App_Response_HttpInterface" sortOrder="10" type="Experius\Csp\Plugin\Magento\Framework\App\Response\HttpInterface"/>
+		<plugin name="Experius_Csp_Plugin_Magento_Framework_App_Response_HttpInterface"
+				type="Experius\Csp\Plugin\Magento\Framework\App\Response\HttpInterface"
+				sortOrder="10"/>
 	</type>
-    <type name="Magento\Csp\Model\CompositePolicyCollector">
-        <arguments>
-            <argument name="collectors" xsi:type="array">
-                <item name="200" xsi:type="object">Experius\Csp\Model\Collector\DynamicCollector</item>
-            </argument>
-        </arguments>
-    </type>
+	<type name="Magento\Csp\Api\Data\ModeConfiguredInterface">
+		<plugin name="Experius_Csp_Plugin_Magento_Csp_Api_Data_ModeConfiguredInterface"
+				type="Experius\Csp\Plugin\Magento\Csp\Api\Data\ModeConfiguredInterface"
+				sortOrder="9999"/>
+	</type>
+	<type name="Magento\Csp\Model\CompositePolicyCollector">
+		<arguments>
+			<argument name="collectors" xsi:type="array">
+				<item name="200" xsi:type="object">Experius\Csp\Model\Collector\DynamicCollector</item>
+			</argument>
+		</arguments>
+	</type>
 </config>

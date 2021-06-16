@@ -15,6 +15,7 @@
         <experius_csp>
             <general>
                 <add_all_storefront_urls>1</add_all_storefront_urls>
+                <reporting_enabled>1</reporting_enabled>
             </general>
         </experius_csp>
     </default>
