@@ -7,11 +7,11 @@
                     <resource id="Experius_Csp::report_delete" sortOrder="20" title="Delete Report"/>
                     <resource id="Experius_Csp::report_view" sortOrder="40" title="View Report"/>
                 </resource>
-            </resource>
-            <resource id="Magento_Backend::stores">
-                <resource id="Magento_Backend::stores_settings">
-                    <resource id="Magento_Config::config">
-                        <resource id="Experius_Csp::config_experius_csp" title="Experius Csp Reporting"/>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Experius_Csp::config_experius_csp" title="Experius Csp Reporting"/>
+                        </resource>
                     </resource>
                 </resource>
             </resource>
