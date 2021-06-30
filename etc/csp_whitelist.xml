@@ -57,7 +57,7 @@
                 <value id="criteo-net-script" type="host">*.criteo.net</value>
                 <value id="criteo-com-script" type="host">*.criteo.com</value>
                 <value id="youtube-script" type="host">*.youtube.com</value>
-                <value id="mouseflow-script" type="host">cdn.mouseflow.comm</value>
+                <value id="mouseflow-script" type="host">cdn.mouseflow.com</value>
             </values>
         </policy>
         <policy id="frame-src">
