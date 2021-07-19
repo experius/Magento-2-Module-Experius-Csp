@@ -30,6 +30,7 @@
                 <value id="www_scripts_gstatic" type="host">www.gstatic.com</value>
                 <value id="google_tagmanager" type="host">*.googletagmanager.com</value>
                 <value id="googleapis" type="host">*.googleapis.com</value>
+                <value id="googleadservices" type="host">*.googleadservices.com</value>
                 <value id="dotmailer_cdn_dnky" type="host">cdn.dnky.co</value>
                 <value id="dotmailer_comapi" type="host">api.comapi.com</value>
                 <value id="trackedlink_net" type="host">*.trackedlink.net</value>
