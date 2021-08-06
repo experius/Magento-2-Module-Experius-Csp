@@ -165,5 +165,24 @@ class Report extends \Magento\Framework\Api\AbstractExtensibleObject implements 
         return $this->setData(self::DATE, $date);
     }
 
+    /**
+     * Get count
+     * @return string|null
+     */
+    public function getCount()
+    {
+        return $this->_get(self::COUNT);
+    }
+
+    /**
+     * Set count
+     * @param string $count
+     * @return \Experius\Csp\Api\Data\ReportInterface
+     */
+    public function setCount($count)
+    {
+        return $this->setData(self::COUNT, $count);
+    }
+
 }
 

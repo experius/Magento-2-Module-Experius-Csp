@@ -124,5 +124,17 @@ interface ReportInterface extends \Magento\Framework\Api\ExtensibleDataInterface
      */
     public function setDate($date);
 
+    /**
+     * Get Count
+     * @return string|null
+     */
+    public function getCount();
+
+    /**
+     * @param $count
+     * @return \Experius\Csp\Api\Data\ReportInterface
+     */
+    public function setCount($count);
+
 }
 
