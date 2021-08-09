@@ -104,6 +104,10 @@ class ReportRepository implements ReportRepositoryInterface
             $report->setStoreId($storeId);
         } */
 
+        // random microsecond to prevent double saves
+        $sleep = rand(1, 1000000);
+        usleep($sleep);
+        // check for existing report
         $existingReport = $this->checkReportExist($report);
 
         if(!$existingReport) {
@@ -193,16 +197,18 @@ class ReportRepository implements ReportRepositoryInterface
     }
 
     /**
-     * @param $reportData
-     * @return \Experius\Csp\Api\Data\ReportInterface|false|null
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @param $report
+     * @return \Experius\Csp\Api\Data\ReportInterface|false|mixed
      */
     public function checkReportExist($report)
     {
         if ($report) {
-            $searchCriteria = $this->searchCriteriaBuilder->addFilter('violated_directive', $report->getViolatedDirective(), 'eq')->create();
-            $searchCriteria = $this->searchCriteriaBuilder->addFilter('blocked_uri', $report->getBlockedUri(), 'eq')->create();
-            $searchCriteria = $this->searchCriteriaBuilder->addFilter('document_uri', $report->getDocumentUri(), 'eq')->create();
+            $searchCriteria = $this->searchCriteriaBuilder
+                ->addFilter('violated_directive', $report->getViolatedDirective(), 'eq')
+                ->addFilter('blocked_uri', $report->getBlockedUri(), 'eq')
+                ->addFilter('document_uri', $report->getDocumentUri(), 'eq')
+                ->create();
+
             $report = reset($this->getList($searchCriteria)->getItems());
         }
 
