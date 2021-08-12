@@ -9,7 +9,6 @@ namespace Experius\Csp\Api\Data;
 
 interface ReportInterface extends \Magento\Framework\Api\ExtensibleDataInterface
 {
-
     const VIOLATED_DIRECTIVE = 'violated_directive';
     const REPORT_ID = 'report_id';
     const DOCUMENT_URI = 'document_uri';
@@ -17,6 +16,7 @@ interface ReportInterface extends \Magento\Framework\Api\ExtensibleDataInterface
     const ORIGINAL_POLICY = 'original_policy';
     const DATE = 'date';
     const BLOCKED_URI = 'blocked_uri';
+    const COUNT = 'count';
 
     /**
      * Get report_id
