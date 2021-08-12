@@ -104,8 +104,8 @@ class ReportRepository implements ReportRepositoryInterface
         // @TODO: [Nice to have] Find the reason csp reports are sent directly at the same time, to prevent having to
         //                       to use the usleep() mechanic to de-synchronise saving.
 
-        // Sleep for a random microsecond to prevent double saves
-        $sleep = rand(1, 1000000);
+        // Sleep for a random millisecond to prevent double saves
+        $sleep = rand(1000, 1000000);
         usleep($sleep);
         $existingReport = $this->doesReportExistAlready($report);
 
