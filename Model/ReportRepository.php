@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace Experius\Csp\Model;
 
+use Experius\Csp\Api\Data\ReportInterface;
 use Experius\Csp\Api\Data\ReportInterfaceFactory;
 use Experius\Csp\Api\Data\ReportSearchResultsInterfaceFactory;
 use Experius\Csp\Api\ReportRepositoryInterface;
@@ -97,34 +98,32 @@ class ReportRepository implements ReportRepositoryInterface
      * {@inheritdoc}
      */
     public function save(
-        \Experius\Csp\Api\Data\ReportInterface $report
+        ReportInterface $report
     ) {
-        /* if (empty($report->getStoreId())) {
-            $storeId = $this->storeManager->getStore()->getId();
-            $report->setStoreId($storeId);
-        } */
+        // @TODO: [Should have] Move detection if already exists outside of the save() function
+        // @TODO: [Nice to have] Find the reason csp reports are sent directly at the same time, to prevent having to
+        //                       to use the usleep() mechanic to de-synchronise saving.
 
-        // random microsecond to prevent double saves
+        // Sleep for a random microsecond to prevent double saves
         $sleep = rand(1, 1000000);
         usleep($sleep);
-        // check for existing report
-        $existingReport = $this->checkReportExist($report);
+        $existingReport = $this->doesReportExistAlready($report);
 
         if(!$existingReport) {
             try {
-                $this->resource->save($this->createReportModel($report));
+                $report = $this->resource->save($this->createReportModel($report));
             } catch (\Exception $exception) {
                 throw new CouldNotSaveException(__(
                     'Could not save the report: %1',
                     $exception->getMessage()
                 ));
             }
-            return $report->getDataModel();
+            return $report;
         } else {
             $existingReport->setCount($existingReport->getCount() + 1);
-            $this->resource->save($this->createReportModel($existingReport));
+            $existingReport = $this->resource->save($this->createReportModel($existingReport));
 
-            return $existingReport->getDataModel();
+            return $existingReport;
         }
     }
 
@@ -151,7 +150,7 @@ class ReportRepository implements ReportRepositoryInterface
         
         $this->extensionAttributesJoinProcessor->process(
             $collection,
-            \Experius\Csp\Api\Data\ReportInterface::class
+            ReportInterface::class
         );
         
         $this->collectionProcessor->process($criteria, $collection);
@@ -173,7 +172,7 @@ class ReportRepository implements ReportRepositoryInterface
      * {@inheritdoc}
      */
     public function delete(
-        \Experius\Csp\Api\Data\ReportInterface $report
+        ReportInterface $report
     ) {
         try {
             $reportModel = $this->reportFactory->create();
@@ -197,22 +196,32 @@ class ReportRepository implements ReportRepositoryInterface
     }
 
     /**
+     * Does report exist already?
+     *
      * @param $report
-     * @return \Experius\Csp\Api\Data\ReportInterface|false|mixed
+     * @return ReportInterface|false
      */
-    public function checkReportExist($report)
+    public function doesReportExistAlready($report)
     {
-        if ($report) {
-            $searchCriteria = $this->searchCriteriaBuilder
-                ->addFilter('violated_directive', $report->getViolatedDirective(), 'eq')
-                ->addFilter('blocked_uri', $report->getBlockedUri(), 'eq')
-                ->addFilter('document_uri', $report->getDocumentUri(), 'eq')
-                ->create();
-
-            $report = reset($this->getList($searchCriteria)->getItems());
+        if (!$report || $report instanceof ReportInterface == false) {
+            return false;
         }
 
-        return $report;
+        $searchCriteria = $this->searchCriteriaBuilder
+            ->addFilter(ReportInterface::VIOLATED_DIRECTIVE, $report->getViolatedDirective())
+            ->addFilter(ReportInterface::BLOCKED_URI, $report->getBlockedUri())
+            ->addFilter(ReportInterface::DOCUMENT_URI, $report->getDocumentUri())
+            ->create();
+
+        if ($this->getList($searchCriteria)->getTotalCount() < 1) {
+            return false;
+        }
+
+        // Return first match if found
+        foreach ($this->getList($searchCriteria)->getItems() as $item) {
+            return $item;
+        }
+        return false;
     }
 
     public function createReportModel($report)
@@ -220,7 +229,7 @@ class ReportRepository implements ReportRepositoryInterface
         $reportData = $this->extensibleDataObjectConverter->toNestedArray(
             $report,
             [],
-            \Experius\Csp\Api\Data\ReportInterface::class
+            ReportInterface::class
         );
 
         return $this->reportFactory->create()->setData($reportData);
