@@ -30,8 +30,8 @@
 	<type name="Magento\Csp\Model\CompositePolicyCollector">
 		<arguments>
 			<argument name="collectors" xsi:type="array">
-				<item name="200" xsi:type="object" sortOrder="5">Experius\Csp\Model\Collector\DynamicCollector</item>
-				<item name="custom" xsi:type="object" sortOrder="6">Experius\Csp\Model\Collector\CustomWhitelistCollector</item>
+				<item name="experius-dynamic" xsi:type="object" sortOrder="5">Experius\Csp\Model\Collector\DynamicCollector</item>
+				<item name="experius-whitelist" xsi:type="object" sortOrder="6">Experius\Csp\Model\Collector\CustomWhitelistCollector</item>
 			</argument>
 		</arguments>
 	</type>

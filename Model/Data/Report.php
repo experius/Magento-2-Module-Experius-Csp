@@ -184,5 +184,23 @@ class Report extends \Magento\Framework\Api\AbstractExtensibleObject implements 
         return $this->setData(self::COUNT, $count);
     }
 
+    /**
+     * Get whitelist
+     * @return string|null
+     */
+    public function getWhitelist()
+    {
+        return $this->_get(self::WHITELIST);
+    }
+
+    /**
+     * Set whitelist
+     * @param string $whitelist
+     * @return \Experius\Csp\Api\Data\ReportInterface
+     */
+    public function setWhitelist($whitelist)
+    {
+        return $this->setData(self::WHITELIST, $whitelist);
+    }
 }
 

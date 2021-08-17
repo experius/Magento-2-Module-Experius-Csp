@@ -86,6 +86,24 @@
 				<label translate="true">Date</label>
 			</settings>
 		</column>
+        <column name="count">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Count</label>
+            </settings>
+        </column>
+        <column name="whitelist" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <bodyTmpl>Experius_Csp/ui/grid/cells/whitelist</bodyTmpl>
+                <options class="Experius\Csp\Model\Block\Source\Whitelist"/>
+                <filter>select</filter>
+                <editor>
+                    <editorType>select</editorType>
+                </editor>
+                <dataType>select</dataType>
+                <label translate="true">Whitelist</label>
+            </settings>
+        </column>
 		<actionsColumn class="Experius\Csp\Ui\Component\Listing\Column\ReportActions" name="actions">
 			<settings>
 				<indexField>report_id</indexField>

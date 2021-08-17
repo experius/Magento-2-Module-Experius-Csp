@@ -80,7 +80,7 @@ class CustomWhitelistCollector implements PolicyCollectorInterface
             $policies[] = new FetchPolicy(
                 $whitelist->getViolatedDirective(),
                 false,
-                [$this->stripWhitelistUrl($whitelist->getBlockedUri())],
+                [$this->reportRepository->stripBlockedUrl($whitelist->getBlockedUri())],
                 [],
                 false,
                 false,
@@ -108,15 +108,6 @@ class CustomWhitelistCollector implements PolicyCollectorInterface
 
 
         return $this->reportRepository->getList($searchCriteria)->getItems();
-    }
-
-    /**
-     * @param $url
-     * @return string
-     */
-    public function stripWhitelistUrl($url)
-    {
-        return explode("/", $url)[2];
     }
 
 }

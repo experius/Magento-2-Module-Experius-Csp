@@ -128,6 +128,24 @@ class ReportRepository implements ReportRepositoryInterface
     }
 
     /**
+     * @param $report
+     * @return ResourceReport
+     * @throws CouldNotSaveException
+     */
+    public function update($report)
+    {
+        try {
+            $report = $this->resource->save($this->createReportModel($report));
+        } catch (\Exception $exception) {
+            throw new CouldNotSaveException(__(
+                'Could not save the report: %1',
+                $exception->getMessage()
+            ));
+        }
+        return $report;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function get($reportId)
@@ -147,22 +165,22 @@ class ReportRepository implements ReportRepositoryInterface
         \Magento\Framework\Api\SearchCriteriaInterface $criteria
     ) {
         $collection = $this->reportCollectionFactory->create();
-        
+
         $this->extensionAttributesJoinProcessor->process(
             $collection,
             ReportInterface::class
         );
-        
+
         $this->collectionProcessor->process($criteria, $collection);
-        
+
         $searchResults = $this->searchResultsFactory->create();
         $searchResults->setSearchCriteria($criteria);
-        
+
         $items = [];
         foreach ($collection as $model) {
             $items[] = $model->getDataModel();
         }
-        
+
         $searchResults->setItems($items);
         $searchResults->setTotalCount($collection->getSize());
         return $searchResults;
@@ -221,6 +239,7 @@ class ReportRepository implements ReportRepositoryInterface
         foreach ($this->getList($searchCriteria)->getItems() as $item) {
             return $item;
         }
+
         return false;
     }
 
@@ -233,6 +252,15 @@ class ReportRepository implements ReportRepositoryInterface
         );
 
         return $this->reportFactory->create()->setData($reportData);
+    }
+
+    /**
+     * @param $url
+     * @return mixed
+     */
+    public function stripBlockedUrl($url)
+    {
+        return parse_url($url)["host"];
     }
 }
 

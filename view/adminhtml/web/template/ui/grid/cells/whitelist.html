@@ -1,0 +1,10 @@
+<!-- ko if: $col.getLabel($row()) == 'Enabled' -->
+<div class="data-grid-cell-content"
+     data-bind="css:'grid-severity-notice'"
+     text="$col.getLabel($row())"></div>
+<!-- /ko -->
+<!-- ko if: $col.getLabel($row()) == 'Disabled' -->
+<div class="data-grid-cell-content"
+     data-bind="css:'grid-severity-critical'"
+     text="$col.getLabel($row())"></div>
+<!-- /ko -->
