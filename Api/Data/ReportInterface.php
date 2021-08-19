@@ -149,4 +149,3 @@ interface ReportInterface extends \Magento\Framework\Api\ExtensibleDataInterface
      */
     public function setWhitelist($whitelist);
 }
-
