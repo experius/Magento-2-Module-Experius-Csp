@@ -10,9 +10,10 @@
             <resource>Experius_Csp::config_experius_csp</resource>
             <group id="general" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" translate="label">
                 <label>General</label>
-                <field id="add_all_storefront_urls" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0" translate="label comment">
+                <field id="add_all_storefront_urls" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0" translate="label comment">
                     <label>Add all storefront urls</label>
                     <comment>This adds all base urls of the available storefronts for this Magento installation to the csp_whitelist.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
                 <field id="reporting_enabled" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0" translate="label comment">
                     <label>Reporting enabled</label>
