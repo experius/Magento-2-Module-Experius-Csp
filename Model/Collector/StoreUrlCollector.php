@@ -62,8 +62,9 @@ class StoreUrlCollector implements PolicyCollectorInterface
             return $defaultPolicies;
         }
 
+        $policies = $defaultPolicies;
+
         // Append all store urls to all default policies
-        $policies = [];
         foreach ($defaultPolicies as $policy) {
             $policies[] = new FetchPolicy(
                 $policy->getId(),
@@ -80,7 +81,7 @@ class StoreUrlCollector implements PolicyCollectorInterface
             );
         }
 
-        return array_merge($defaultPolicies, $policies);
+        return $policies;
     }
 
     /**
@@ -97,15 +98,8 @@ class StoreUrlCollector implements PolicyCollectorInterface
         try {
             $baseUrls = [];
             foreach ($this->scopeResolver->getScopes() as $scope) {
-                $baseUrl = parse_url($scope->getBaseUrl(), PHP_URL_HOST);
-                if ($baseUrl) {
-                    $baseUrls[] = '*.' . $baseUrl;
-                }
-
-                $secureBaseUrl = parse_url($scope->getBaseUrl(UrlInterface::URL_TYPE_LINK, true), PHP_URL_HOST);
-                if ($secureBaseUrl) {
-                    $baseUrls[] = '*.' . $secureBaseUrl;
-                }
+                $baseUrls[] = $scope->getBaseUrl();
+                $baseUrls[] = $scope->getBaseUrl(UrlInterface::URL_TYPE_LINK, true);
             }
 
             $this->storeUrls = array_unique($baseUrls);
