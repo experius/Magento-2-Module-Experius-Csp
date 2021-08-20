@@ -30,8 +30,8 @@
 	<type name="Magento\Csp\Model\CompositePolicyCollector">
 		<arguments>
 			<argument name="collectors" xsi:type="array">
-				<item name="experius-all-store-urls" xsi:type="object" sortOrder="5">Experius\Csp\Model\Collector\StoreUrlCollector</item>
-				<item name="experius-configured-whitelist" xsi:type="object" sortOrder="6">Experius\Csp\Model\Collector\ConfiguredWhitelistCollector</item>
+				<item name="experius-all-store-urls" xsi:type="object" sortOrder="9001">Experius\Csp\Model\Collector\StoreUrlCollector</item>
+				<item name="experius-configured-whitelist" xsi:type="object" sortOrder="9000">Experius\Csp\Model\Collector\ConfiguredWhitelistCollector</item>
 			</argument>
 		</arguments>
 	</type>

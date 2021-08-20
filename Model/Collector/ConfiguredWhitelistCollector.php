@@ -70,7 +70,7 @@ class ConfiguredWhitelistCollector implements PolicyCollectorInterface
             return $defaultPolicies;
         }
 
-        $policies = [];
+        $policies = $defaultPolicies;
         $customWhitelist = $this->collectCustomWhitelist();
         foreach ($customWhitelist as $whitelist) {
             $hostSource = $this->reportRepository->extractHostSource($whitelist->getBlockedUri());
@@ -78,6 +78,7 @@ class ConfiguredWhitelistCollector implements PolicyCollectorInterface
             if (strlen($hostSource) < 1) {
                 continue;
             }
+
             $policies[] = new FetchPolicy(
                 $whitelist->getViolatedDirective(),
                 false,
@@ -93,7 +94,7 @@ class ConfiguredWhitelistCollector implements PolicyCollectorInterface
             );
         }
 
-        return array_merge($defaultPolicies, $policies);
+        return $policies;
     }
 
     /**
