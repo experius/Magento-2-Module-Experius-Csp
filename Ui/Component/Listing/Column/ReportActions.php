@@ -71,7 +71,6 @@ class ReportActions extends Column
             foreach ($dataSource['data']['items'] as & $item) {
                 if (isset($item['report_id'])) {
                     $hostSource = $this->reportRepository->extractHostSource($item['blocked_uri']);
-                    $message = $item['whitelist'] ? __('Are you sure you want to de-whitelist this record?') : __('Are you sure you want to whitelist this record?');
                     $item[$this->getData('name')] = [
                         'view' => [
                             'href' => $this->urlBuilder->getUrl(
@@ -97,6 +96,7 @@ class ReportActions extends Column
                         ],
                     ];
                     if ($this->fetchPolicyReader->canRead($item['violated_directive'])) {
+                        $message = $item['whitelist'] ? __('Are you sure you want to de-whitelist this record?') : __('Are you sure you want to whitelist this record?');
                         $item[$this->getData('name')]['whitelist'] = [
                             'href' => $this->urlBuilder->getUrl(
                                 static::URL_PATH_WHITELIST,
@@ -104,7 +104,7 @@ class ReportActions extends Column
                                     'report_id' => $item['report_id']
                                 ]
                             ),
-                            'label' => __('Whitelist'),
+                            'label' => $item['whitelist'] ? __('De-whitelist') : __('Whitelist'),
                             'confirm' => [
                                 'title' => __('Whitelist %1', $hostSource),
                                 'message' => $message
