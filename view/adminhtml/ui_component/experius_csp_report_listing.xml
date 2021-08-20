@@ -72,6 +72,7 @@
 			<settings>
 				<filter>text</filter>
 				<label translate="true">Original Policy</label>
+				<visible>false</visible>
 			</settings>
 		</column>
 		<column name="blocked_uri">
