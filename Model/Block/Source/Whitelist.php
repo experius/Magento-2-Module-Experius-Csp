@@ -1,12 +1,14 @@
 <?php
+/**
+ * Copyright © Experius B.V. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+declare(strict_types=1);
 
 namespace Experius\Csp\Model\Block\Source;
 
 use Magento\Framework\Data\OptionSourceInterface;
 
-/**
- * Class PrebookStatus
- */
 class Whitelist implements OptionSourceInterface
 {
     const STATUS_ENABLED = 1;
@@ -35,6 +37,6 @@ class Whitelist implements OptionSourceInterface
      */
     public function getAvailableStatuses()
     {
-        return [self::STATUS_ENABLED => __('Enabled'), self::STATUS_DISABLED => __('Disabled')];
+        return [self::STATUS_ENABLED => 'Enabled', self::STATUS_DISABLED => 'Disabled'];
     }
 }
