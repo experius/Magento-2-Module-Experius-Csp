@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Experius All rights reserved.
+ * Copyright © Experius B.V. All rights reserved.
  * See COPYING.txt for license details.
  */
 declare(strict_types=1);
@@ -8,36 +8,43 @@ declare(strict_types=1);
 namespace Experius\Csp\Ui\Component\Listing\Column;
 
 use Experius\Csp\Model\ReportRepository;
+use Magento\Framework\UrlInterface;
+use Magento\Framework\View\Element\UiComponent\ContextInterface;
+use Magento\Framework\View\Element\UiComponentFactory;
+use Magento\Ui\Component\Listing\Columns\Column;
 
-class ReportActions extends \Magento\Ui\Component\Listing\Columns\Column
+class ReportActions extends Column
 {
+    const URL_PATH_VIEW = 'experius_csp/report/view';
+    const URL_PATH_DETAILS = 'experius_csp/report/details';
+    const URL_PATH_DELETE = 'experius_csp/report/delete';
+    const URL_PATH_WHITELIST = 'experius_csp/report/whitelist';
+
     /**
      * @var ReportRepository
      */
     protected $reportRepository;
 
-    const URL_PATH_VIEW = 'experius_csp/report/view';
-    const URL_PATH_DETAILS = 'experius_csp/report/details';
+    /**
+     * @var UrlInterface
+     */
     protected $urlBuilder;
-    const URL_PATH_DELETE = 'experius_csp/report/delete';
-    const URL_PATH_WHITELIST = 'experius_csp/report/whitelist';
 
     /**
-     * ReportActions constructor.
-     * @param \Magento\Framework\View\Element\UiComponent\ContextInterface $context
-     * @param \Magento\Framework\View\Element\UiComponentFactory $uiComponentFactory
-     * @param \Magento\Framework\UrlInterface $urlBuilder
+     * @param ContextInterface $context
+     * @param UiComponentFactory $uiComponentFactory
+     * @param UrlInterface $urlBuilder
+     * @param ReportRepository $reportRepository
      * @param array $components
      * @param array $data
-     * @param ReportRepository $reportRepository
      */
     public function __construct(
-        \Magento\Framework\View\Element\UiComponent\ContextInterface $context,
-        \Magento\Framework\View\Element\UiComponentFactory $uiComponentFactory,
-        \Magento\Framework\UrlInterface $urlBuilder,
+        ContextInterface $context,
+        UiComponentFactory $uiComponentFactory,
+        UrlInterface $urlBuilder,
+        ReportRepository $reportRepository,
         array $components = [],
-        array $data = [],
-        ReportRepository $reportRepository
+        array $data = []
     ) {
         $this->urlBuilder = $urlBuilder;
         $this->reportRepository = $reportRepository;
@@ -55,8 +62,8 @@ class ReportActions extends \Magento\Ui\Component\Listing\Columns\Column
         if (isset($dataSource['data']['items'])) {
             foreach ($dataSource['data']['items'] as & $item) {
                 if (isset($item['report_id'])) {
-                    $strippedBlockedUrl = $this->reportRepository->extractHost($item['blocked_uri']);
-                    $message = $item['whitelist'] ? 'Are you sure you wan\'t to de-whitelist this record?' : 'Are you sure you wan\'t to whitelist this record?';
+                    $hostSource = $this->reportRepository->extractHostSource($item['blocked_uri']);
+                    $message = $item['whitelist'] ? __('Are you sure you want to de-whitelist this record?') : __('Are you sure you want to whitelist this record?');
                     $item[$this->getData('name')] = [
                         'view' => [
                             'href' => $this->urlBuilder->getUrl(
@@ -76,7 +83,7 @@ class ReportActions extends \Magento\Ui\Component\Listing\Columns\Column
                             ),
                             'label' => __('Delete'),
                             'confirm' => [
-                                'title' => __('Delete %1', $strippedBlockedUrl),
+                                'title' => __('Delete %1', $hostSource),
                                 'message' => __('Are you sure you wan\'t to delete this record?')
                             ]
                         ],
@@ -89,8 +96,8 @@ class ReportActions extends \Magento\Ui\Component\Listing\Columns\Column
                             ),
                             'label' => __('Whitelist'),
                             'confirm' => [
-                                'title' => __('Whitelist %1', $strippedBlockedUrl),
-                                'message' => __($message)
+                                'title' => __('Whitelist %1', $hostSource),
+                                'message' => $message
                             ]
                         ],
                     ];
@@ -101,4 +108,3 @@ class ReportActions extends \Magento\Ui\Component\Listing\Columns\Column
         return $dataSource;
     }
 }
-

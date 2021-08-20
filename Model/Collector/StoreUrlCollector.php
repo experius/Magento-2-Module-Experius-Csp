@@ -98,8 +98,8 @@ class StoreUrlCollector implements PolicyCollectorInterface
         try {
             $baseUrls = [];
             foreach ($this->scopeResolver->getScopes() as $scope) {
-                $baseUrls[] = $scope->getBaseUrl();
-                $baseUrls[] = $scope->getBaseUrl(UrlInterface::URL_TYPE_LINK, true);
+                $baseUrls[] = rtrim($scope->getBaseUrl(), '/');
+                $baseUrls[] = rtrim($scope->getBaseUrl(UrlInterface::URL_TYPE_LINK, true), '/');
             }
 
             $this->storeUrls = array_unique($baseUrls);

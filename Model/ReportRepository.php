@@ -256,13 +256,20 @@ class ReportRepository implements ReportRepositoryInterface
     }
 
     /**
-     * Extract host
+     * Extract host source, leaving scheme-less urls and non-urls intact (i.e. "example.com" and "inline")
      *
      * @param string $url
      * @return string
      */
-    public function extractHost(string $url): string
+    public function extractHostSource(string $url): string
     {
-        return 'https://' . parse_url($url, PHP_URL_HOST) ?? '';
+        $scheme = parse_url($url, PHP_URL_SCHEME);
+        $host = parse_url($url, PHP_URL_HOST);
+        if ($scheme && $host && strlen($scheme) > 0 && strlen($host) > 0) {
+            return $scheme . '://' . $host;
+        } elseif ($host && strlen($host) > 0) {
+            return $host;
+        }
+        return $url;
     }
 }

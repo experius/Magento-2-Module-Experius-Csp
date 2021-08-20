@@ -73,10 +73,15 @@ class ConfiguredWhitelistCollector implements PolicyCollectorInterface
         $policies = [];
         $customWhitelist = $this->collectCustomWhitelist();
         foreach ($customWhitelist as $whitelist) {
+            $hostSource = $this->reportRepository->extractHostSource($whitelist->getBlockedUri());
+            // Skip empty entries
+            if (strlen($hostSource) < 1) {
+                continue;
+            }
             $policies[] = new FetchPolicy(
                 $whitelist->getViolatedDirective(),
                 false,
-                [$this->reportRepository->extractHost($whitelist->getBlockedUri())],
+                [$hostSource],
                 [],
                 false,
                 false,
