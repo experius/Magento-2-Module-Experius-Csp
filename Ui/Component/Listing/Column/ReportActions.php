@@ -55,7 +55,7 @@ class ReportActions extends \Magento\Ui\Component\Listing\Columns\Column
         if (isset($dataSource['data']['items'])) {
             foreach ($dataSource['data']['items'] as & $item) {
                 if (isset($item['report_id'])) {
-                    $strippedBlockedUrl = $this->reportRepository->stripBlockedUrl($item['blocked_uri']);
+                    $strippedBlockedUrl = $this->reportRepository->extractHost($item['blocked_uri']);
                     $message = $item['whitelist'] ? 'Are you sure you wan\'t to de-whitelist this record?' : 'Are you sure you wan\'t to whitelist this record?';
                     $item[$this->getData('name')] = [
                         'view' => [

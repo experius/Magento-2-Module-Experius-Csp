@@ -27,10 +27,10 @@ use Magento\Framework\Api\SearchCriteriaBuilder;
 
 class ReportRepository implements ReportRepositoryInterface
 {
-
     protected $reportFactory;
 
     protected $extensibleDataObjectConverter;
+
     protected $reportCollectionFactory;
 
     protected $dataObjectHelper;
@@ -53,6 +53,7 @@ class ReportRepository implements ReportRepositoryInterface
 
     /**
      * ReportRepository constructor.
+     *
      * @param ResourceReport $resource
      * @param ReportFactory $reportFactory
      * @param ReportInterfaceFactory $dataReportFactory
@@ -109,7 +110,7 @@ class ReportRepository implements ReportRepositoryInterface
         usleep($sleep);
         $existingReport = $this->doesReportExistAlready($report);
 
-        if(!$existingReport) {
+        if (!$existingReport) {
             try {
                 $report = $this->resource->save($this->createReportModel($report));
             } catch (\Exception $exception) {
@@ -255,12 +256,13 @@ class ReportRepository implements ReportRepositoryInterface
     }
 
     /**
-     * @param $url
-     * @return mixed
+     * Extract host
+     *
+     * @param string $url
+     * @return string
      */
-    public function stripBlockedUrl($url)
+    public function extractHost(string $url): string
     {
-        return parse_url($url)["host"];
+        return 'https://' . parse_url($url, PHP_URL_HOST) ?? '';
     }
 }
-

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Magento, Inc. All rights reserved.
+ * Copyright © Experius B.V. All rights reserved.
  * See COPYING.txt for license details.
  */
 declare(strict_types=1);
@@ -10,15 +10,11 @@ namespace Experius\Csp\Model\Collector;
 use Magento\Csp\Api\PolicyCollectorInterface;
 use Magento\Csp\Model\Policy\FetchPolicy;
 use Magento\Framework\App\ResourceConnection;
-use Magento\Store\Model\ScopeInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Experius\Csp\Model\ReportRepository;
 
-/**
- * CSPs dynamically added which are whitelisted via admin panel
- */
-class CustomWhitelistCollector implements PolicyCollectorInterface
+class ConfiguredWhitelistCollector implements PolicyCollectorInterface
 {
     /**
      * @var ResourceConnection
@@ -47,6 +43,7 @@ class CustomWhitelistCollector implements PolicyCollectorInterface
 
     /**
      * CustomWhitelistCollector constructor.
+     *
      * @param ResourceConnection $connection
      * @param ScopeConfigInterface $scopeConfig
      * @param SearchCriteriaBuilder $searchCriteriaBuilder
@@ -57,8 +54,7 @@ class CustomWhitelistCollector implements PolicyCollectorInterface
         ScopeConfigInterface $scopeConfig,
         SearchCriteriaBuilder $searchCriteriaBuilder,
         ReportRepository $reportRepository
-    )
-    {
+    ) {
         $this->connection = $connection;
         $this->scopeConfig = $scopeConfig;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
@@ -74,13 +70,13 @@ class CustomWhitelistCollector implements PolicyCollectorInterface
             return $defaultPolicies;
         }
 
-        $policies = $defaultPolicies;
+        $policies = [];
         $customWhitelist = $this->collectCustomWhitelist();
         foreach ($customWhitelist as $whitelist) {
             $policies[] = new FetchPolicy(
                 $whitelist->getViolatedDirective(),
                 false,
-                [$this->reportRepository->stripBlockedUrl($whitelist->getBlockedUri())],
+                [$this->reportRepository->extractHost($whitelist->getBlockedUri())],
                 [],
                 false,
                 false,
@@ -92,7 +88,7 @@ class CustomWhitelistCollector implements PolicyCollectorInterface
             );
         }
 
-        return $policies;
+        return array_merge($defaultPolicies, $policies);
     }
 
     /**
@@ -103,11 +99,15 @@ class CustomWhitelistCollector implements PolicyCollectorInterface
     {
         // Get custom csp which need to be whitelisted
         $searchCriteria = $this->searchCriteriaBuilder
-            ->addFilter('whitelist',1)
+            ->addFilter('whitelist', 1)
             ->create();
 
+        $whitelistedCspEntities = $this->reportRepository->getList($searchCriteria);
 
-        return $this->reportRepository->getList($searchCriteria)->getItems();
+        if ($whitelistedCspEntities->getTotalCount() < 1) {
+            return [];
+        }
+
+        return $whitelistedCspEntities->getItems();
     }
-
 }
