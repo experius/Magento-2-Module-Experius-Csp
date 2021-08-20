@@ -8,6 +8,7 @@ declare(strict_types=1);
 namespace Experius\Csp\Ui\Component\Listing\Column;
 
 use Experius\Csp\Model\ReportRepository;
+use Magento\Csp\Model\Collector\Config\FetchPolicyReader;
 use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
 use Magento\Framework\View\Element\UiComponentFactory;
@@ -31,6 +32,11 @@ class ReportActions extends Column
     protected $urlBuilder;
 
     /**
+     * @var FetchPolicyReader
+     */
+    protected $fetchPolicyReader;
+
+    /**
      * @param ContextInterface $context
      * @param UiComponentFactory $uiComponentFactory
      * @param UrlInterface $urlBuilder
@@ -43,11 +49,13 @@ class ReportActions extends Column
         UiComponentFactory $uiComponentFactory,
         UrlInterface $urlBuilder,
         ReportRepository $reportRepository,
+        FetchPolicyReader $fetchPolicyReader,
         array $components = [],
         array $data = []
     ) {
         $this->urlBuilder = $urlBuilder;
         $this->reportRepository = $reportRepository;
+        $this->fetchPolicyReader = $fetchPolicyReader;
         parent::__construct($context, $uiComponentFactory, $components, $data);
     }
 
@@ -87,7 +95,9 @@ class ReportActions extends Column
                                 'message' => __('Are you sure you wan\'t to delete this record?')
                             ]
                         ],
-                        'whitelist' => [
+                    ];
+                    if ($this->fetchPolicyReader->canRead($item['violated_directive'])) {
+                        $item[$this->getData('name')]['whitelist'] = [
                             'href' => $this->urlBuilder->getUrl(
                                 static::URL_PATH_WHITELIST,
                                 [
@@ -99,8 +109,8 @@ class ReportActions extends Column
                                 'title' => __('Whitelist %1', $hostSource),
                                 'message' => $message
                             ]
-                        ],
-                    ];
+                        ];
+                    }
                 }
             }
         }
