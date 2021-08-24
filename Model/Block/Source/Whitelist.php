@@ -11,8 +11,14 @@ use Magento\Framework\Data\OptionSourceInterface;
 
 class Whitelist implements OptionSourceInterface
 {
-    const STATUS_ENABLED = 1;
     const STATUS_DISABLED = 0;
+    const STATUS_ENABLED = 1;
+    const STATUS_NOT_ALLOWED = 2;
+
+    /**
+     * @var null|array
+     */
+    protected $options = null;
 
     /**
      * Get options
@@ -21,15 +27,18 @@ class Whitelist implements OptionSourceInterface
      */
     public function toOptionArray()
     {
-        $availableOptions = $this->getAvailableStatuses();
-        $options = [];
-        foreach ($availableOptions as $key => $value) {
-            $options[] = [
-                'label' => $value,
-                'value' => $key,
-            ];
+        if (is_null($this->options)) {
+            $availableOptions = $this->getAvailableStatuses();
+            $options = [];
+            foreach ($availableOptions as $key => $value) {
+                $options[] = [
+                    'label' => $value,
+                    'value' => $key,
+                ];
+            }
+            $this->options = $options;
         }
-        return $options;
+        return $this->options;
     }
 
     /**
@@ -37,6 +46,10 @@ class Whitelist implements OptionSourceInterface
      */
     public function getAvailableStatuses()
     {
-        return [self::STATUS_ENABLED => 'Enabled', self::STATUS_DISABLED => 'Disabled'];
+        return [
+            self::STATUS_ENABLED => 'Enabled',
+            self::STATUS_DISABLED => 'Disabled',
+            self::STATUS_NOT_ALLOWED => 'Not allowed'
+        ];
     }
 }
