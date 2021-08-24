@@ -7,10 +7,15 @@ declare(strict_types=1);
 
 namespace Experius\Csp\Controller\Adminhtml;
 
-abstract class Report extends \Magento\Backend\App\Action
-{
+use Magento\Backend\App\Action;
 
+abstract class Report extends Action
+{
     const ADMIN_RESOURCE = 'Experius_Csp::top_level';
+
+    /**
+     * @var \Magento\Framework\Registry
+     */
     protected $_coreRegistry;
 
     /**
@@ -35,8 +40,7 @@ abstract class Report extends \Magento\Backend\App\Action
     {
         $resultPage->setActiveMenu(self::ADMIN_RESOURCE)
             ->addBreadcrumb(__('Experius'), __('Experius'))
-            ->addBreadcrumb(__('Csp Report'), __('Csp Report'));
+            ->addBreadcrumb(__('Csp Report'), __('CSP reporting &amp; whitelist'));
         return $resultPage;
     }
 }
-

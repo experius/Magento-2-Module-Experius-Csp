@@ -7,9 +7,13 @@ declare(strict_types=1);
 
 namespace Experius\Csp\Controller\Adminhtml\Report;
 
-class View extends \Experius\Csp\Controller\Adminhtml\Report
-{
+use Experius\Csp\Controller\Adminhtml\Report;
 
+class View extends Report
+{
+    /**
+     * @var \Magento\Framework\View\Result\PageFactory
+     */
     protected $resultPageFactory;
 
     /**
@@ -52,10 +56,8 @@ class View extends \Experius\Csp\Controller\Adminhtml\Report
         // 3. Build view
         /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
         $resultPage = $this->resultPageFactory->create();
-        $this->initPage($resultPage)->addBreadcrumb(__('Csp Reports'), __('View Csp Report'));
-        $resultPage->getConfig()->getTitle()->prepend(__('Csp Reports'));
+        $this->initPage($resultPage)->addBreadcrumb(__('CSP reporting &amp; whitelist'), __('View Csp Report'));
         $resultPage->getConfig()->getTitle()->prepend(__('View Csp Report %1', $model->getId()));
         return $resultPage;
     }
 }
-
