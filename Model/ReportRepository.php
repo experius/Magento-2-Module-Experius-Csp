@@ -121,9 +121,17 @@ class ReportRepository implements ReportRepositoryInterface
             }
             return $report;
         } else {
-            $existingReport->setCount($existingReport->getCount() + 1);
-            $existingReport = $this->resource->save($this->createReportModel($existingReport));
-
+            try {
+                // Override most recent "original policy"
+                $existingReport->setOriginalPolicy($report->getOriginalPolicy());
+                $existingReport->setCount($existingReport->getCount() + 1);
+                $existingReport = $this->resource->save($this->createReportModel($existingReport));
+            } catch (\Exception $exception) {
+                throw new CouldNotSaveException(__(
+                    'Could not save the report: %1',
+                    $exception->getMessage()
+                ));
+            }
             return $existingReport;
         }
     }
