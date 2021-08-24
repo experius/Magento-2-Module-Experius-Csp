@@ -1,60 +1,67 @@
 # Mage2 Module Experius Csp
 
-    ``experius/module-csp``
+```
+experius/module-csp
+```
 
  - [Installation](#markdown-header-installation)
  - [Main Functionalities](#markdown-header-main-functionalities)
+ - [Basic allowed list](#markdown-header-basic-allowed-list)
+ - [Content Security Policy Reporting & whitelisting](#markdown-header-content-security-policy-reporting-&-whitelisting)
+ - [Add a resource to the allowed list permanently](#markdown-header-add-a-resource-to-the-allowed-list-permanently)
 
 ## Installation
-\* = in production please use the `--keep-generated` option
+In production please use the `--keep-generated` option
 
  - Install the module composer by running `composer require experius/module-csp`
  - enable the module by running `php bin/magento module:enable Experius_Csp`
- - apply database updates by running `php bin/magento setup:upgrade`\*
+ - apply database updates by running `php bin/magento setup:upgrade`
  - Flush the cache by running `php bin/magento cache:flush`
 
-
 ## Main Functionalities
+Provide a basic Content Security Policy allowed-list (whitelist) and when the Resource should be blocked it will automatically be reported within the Experius CSP Report Table (experius_csp_report).
 
-Provide a basic Content Security Policy Allowed List and when the Resource should be blocked it will automatically be reported within the Experius CSP Report Table (experius_csp_report).
+When there is a report of a blocked directive is found, an error message will be show in the admin to notify the developer/client.
 
-When there is a report found an error message will be show in the admin:
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/experius/Magento-2-Module-Experius-Csp/master/Docs/Screenshots/csp-admin-notification.png" title="Admin Notification Error">
-</p>
+These reports can be whitelisted for directive which allow this.
+See "Content Security Policy Reporting & whitelisting" below for an example and more details.
 
 ### IMPORTANT: Content Security Policy Report Only Mode
 In the upcoming Magento 2.4 Release then the Content Security Policy Report Only Mode then will be disabled and it will validate strict.
 
-
 The report-to has been disabled in this version because it is not working properly.
 See: \Experius\Csp\Plugin\Magento\Framework\App\Response\HttpInterface::beforeSetHeader
 
-### Basic Allowed List
-Currently also contains the CSP for the following modules for which a PR has been created to their GitHub repo:
+### Basic allowed list
+Currently this module contains a basic whitelist of considerd "safe" sources.
 
- - Dotdigital / Dotmailer Chat
- - Buckaroo
-
-Besides that it contains an allowed list for:
+A few examples:
 
  - Google Fonts
- - Google Apis such as Google Maps
- - Youtube Videos
- - commerce.adobedc.net for Magento_DataService
- - Several scripts you can you use in your Google Tagmanager0
+ - Google Maps
+ - Dotdigital / Dotmailer Chat
+ - Buckaroo
+ - etc.
 
-### Content Security Policy Report
+For a full list for each directive, please check the following file:
+```
+etc/csp_whitelist.xml
+```
+
+### Content Security Policy Reporting & whitelisting
 In the Magento Admin you can view the reports which are created.
 
-    System > Tools > Csp Report
+    System > Tools > CSP reporting & whitelist
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/experius/Magento-2-Module-Experius-Csp/master/Docs/Screenshots/report-view.png" title="Admin Content Security Policy Report View">
-</p>
+![Scheme](Docs/Screenshots/report-view.png)
 
-### Add a resource to the Allowed List
+
+To avoid clutter a counter is introduced, which prevents the table from growing in size excessively with many pageviews.
+This is grouped by "violated_directive", "blocked_uri" and "document_uri".
+
+@TODO: [Nice to have] consider letting louse "document_uri", since whitelist is applied across the entire Magento installation (globally).
+
+### Add a resource to the allowed list permanently
 Based on the reports you can easily add a csp_whitelist.xml file within your own modules and when you are done just delete the record because it no longer is relevant.
 More information about how this xml file works you can find here:
 
@@ -82,6 +89,5 @@ Fix:
             </policy>
         </policies>
     </csp_whitelist>
-
 
 
