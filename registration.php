@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Experius All rights reserved.
+ * Copyright © Experius B.V. All rights reserved.
  * See COPYING.txt for license details.
  */
 use Magento\Framework\Component\ComponentRegistrar;
