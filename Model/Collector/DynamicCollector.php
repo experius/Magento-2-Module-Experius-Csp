@@ -10,7 +10,6 @@ namespace Experius\Csp\Model\Collector;
 use Magento\Csp\Api\PolicyCollectorInterface;
 use Magento\Csp\Model\Policy\FetchPolicy;
 use Magento\Framework\App\ResourceConnection;
-use Magento\Store\Model\ScopeInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 
 /**
@@ -47,6 +46,9 @@ class DynamicCollector implements PolicyCollectorInterface
         $this->scopeConfig = $scopeConfig;
     }
 
+    /**
+     * @return bool
+     */
     public function isEnabled()
     {
         return true;
@@ -60,9 +62,8 @@ class DynamicCollector implements PolicyCollectorInterface
         if (!$this->isEnabled() || !$defaultPolicies) {
             return $defaultPolicies;
         }
-
+        $policies = [];
         foreach ($defaultPolicies as $policy) {
-
             $policies[] = new FetchPolicy(
                 $policy->getId(),
                 false,
@@ -76,10 +77,7 @@ class DynamicCollector implements PolicyCollectorInterface
                 false,
                 false
             );
-
-
         }
-
         return array_merge($defaultPolicies, $policies);
     }
 
@@ -114,16 +112,25 @@ class DynamicCollector implements PolicyCollectorInterface
         $connection = $this->connection->getConnection();
 
         $table = $connection->getTableName('core_config_data');
-        $sql = "SELECT DISTINCT TRIM(BOTH '/' FROM value) FROM $table WHERE path LIKE 'web/unsecure/base_url'";
+        $select = $connection->select()->from($table, "value")->distinct()
+            ->where("value IS NOT NULL")
+            ->where("path in (?)",  ['web/unsecure/base_url', 'web/unsecure/base_media_url', 'web/unsecure/base_static_url', 'web/unsecure/base_link_url']);
 
-        $results = $connection->fetchCol($sql);
-
+        $results = $connection->fetchCol($select);
         if (!$results && !empty($results)) {
             return false;
         }
 
-        $this->storeUrls = $results;
+        foreach ($results as &$result) {
+            //Strip url down to just the domain.
+            preg_match('#//([^/]*)/#', $result, $matches);
+            if ($matches) {
+                $result = $matches[1];
+            }
+        }
 
-        return $results;
+        $this->storeUrls = array_unique($results);
+
+        return $this->storeUrls;
     }
 }

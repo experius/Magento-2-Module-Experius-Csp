@@ -30,7 +30,7 @@
 	<type name="Magento\Csp\Model\CompositePolicyCollector">
 		<arguments>
 			<argument name="collectors" xsi:type="array">
-				<item name="200" xsi:type="object">Experius\Csp\Model\Collector\DynamicCollector</item>
+				<item name="dynamic" xsi:type="object" sortOrder="200">Experius\Csp\Model\Collector\DynamicCollector</item>
 			</argument>
 		</arguments>
 	</type>
