@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Experius All rights reserved.
+ * Copyright © Experius B.V. All rights reserved.
  * See COPYING.txt for license details.
  */
 declare(strict_types=1);
@@ -11,13 +11,14 @@ use Experius\Csp\Api\Data\ReportInterface;
 use Experius\Csp\Api\Data\ReportInterfaceFactory;
 use Experius\Csp\Api\Data\ReportSearchResultsInterfaceFactory;
 use Experius\Csp\Api\ReportRepositoryInterface;
+use Experius\Csp\Model\Block\Source\Whitelist;
 use Experius\Csp\Model\ResourceModel\Report as ResourceReport;
 use Experius\Csp\Model\ResourceModel\Report\CollectionFactory as ReportCollectionFactory;
+use Magento\Csp\Model\Collector\Config\FetchPolicyReader;
 use Magento\Framework\Api\DataObjectHelper;
 use Magento\Framework\Api\ExtensibleDataObjectConverter;
 use Magento\Framework\Api\ExtensionAttribute\JoinProcessorInterface;
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
-use Magento\Framework\Exception\AbstractAggregateException;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
@@ -27,32 +28,67 @@ use Magento\Framework\Api\SearchCriteriaBuilder;
 
 class ReportRepository implements ReportRepositoryInterface
 {
-
+    /**
+     * @var ReportFactory
+     */
     protected $reportFactory;
 
+    /**
+     * @var ExtensibleDataObjectConverter
+     */
     protected $extensibleDataObjectConverter;
+
+    /**
+     * @var ReportCollectionFactory
+     */
     protected $reportCollectionFactory;
 
+    /**
+     * @var DataObjectHelper
+     */
     protected $dataObjectHelper;
 
+    /**
+     * @var ResourceReport
+     */
     protected $resource;
 
-    private $storeManager;
-
+    /**
+     * @var ReportSearchResultsInterfaceFactory
+     */
     protected $searchResultsFactory;
 
+    /**
+     * @var DataObjectProcessor
+     */
     protected $dataObjectProcessor;
 
+    /**
+     * @var ReportInterfaceFactory
+     */
     protected $dataReportFactory;
 
+    /**
+     * @var JoinProcessorInterface
+     */
     protected $extensionAttributesJoinProcessor;
 
+    /**
+     * @var CollectionProcessorInterface
+     */
     private $collectionProcessor;
 
+    /**
+     * @var SearchCriteriaBuilder
+     */
     protected $searchCriteriaBuilder;
 
     /**
-     * ReportRepository constructor.
+     * @var FetchPolicyReader
+     */
+    protected $fetchPolicyReader;
+
+    /**
      * @param ResourceReport $resource
      * @param ReportFactory $reportFactory
      * @param ReportInterfaceFactory $dataReportFactory
@@ -60,11 +96,11 @@ class ReportRepository implements ReportRepositoryInterface
      * @param ReportSearchResultsInterfaceFactory $searchResultsFactory
      * @param DataObjectHelper $dataObjectHelper
      * @param DataObjectProcessor $dataObjectProcessor
-     * @param StoreManagerInterface $storeManager
      * @param CollectionProcessorInterface $collectionProcessor
      * @param JoinProcessorInterface $extensionAttributesJoinProcessor
      * @param ExtensibleDataObjectConverter $extensibleDataObjectConverter
      * @param SearchCriteriaBuilder $searchCriteriaBuilder
+     * @param FetchPolicyReader $fetchPolicyReader
      */
     public function __construct(
         ResourceReport $resource,
@@ -74,11 +110,11 @@ class ReportRepository implements ReportRepositoryInterface
         ReportSearchResultsInterfaceFactory $searchResultsFactory,
         DataObjectHelper $dataObjectHelper,
         DataObjectProcessor $dataObjectProcessor,
-        StoreManagerInterface $storeManager,
         CollectionProcessorInterface $collectionProcessor,
         JoinProcessorInterface $extensionAttributesJoinProcessor,
         ExtensibleDataObjectConverter $extensibleDataObjectConverter,
-        SearchCriteriaBuilder $searchCriteriaBuilder
+        SearchCriteriaBuilder $searchCriteriaBuilder,
+        FetchPolicyReader $fetchPolicyReader
     ) {
         $this->resource = $resource;
         $this->reportFactory = $reportFactory;
@@ -87,11 +123,11 @@ class ReportRepository implements ReportRepositoryInterface
         $this->dataObjectHelper = $dataObjectHelper;
         $this->dataReportFactory = $dataReportFactory;
         $this->dataObjectProcessor = $dataObjectProcessor;
-        $this->storeManager = $storeManager;
         $this->collectionProcessor = $collectionProcessor;
         $this->extensionAttributesJoinProcessor = $extensionAttributesJoinProcessor;
         $this->extensibleDataObjectConverter = $extensibleDataObjectConverter;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
+        $this->fetchPolicyReader = $fetchPolicyReader;
     }
 
     /**
@@ -109,8 +145,12 @@ class ReportRepository implements ReportRepositoryInterface
         usleep($sleep);
         $existingReport = $this->doesReportExistAlready($report);
 
-        if(!$existingReport) {
+        if (!$existingReport) {
             try {
+                if (!$this->fetchPolicyReader->canRead($report->getViolatedDirective())) {
+                    $report->setWhitelist(Whitelist::STATUS_NOT_ALLOWED);
+                }
+
                 $report = $this->resource->save($this->createReportModel($report));
             } catch (\Exception $exception) {
                 throw new CouldNotSaveException(__(
@@ -120,11 +160,41 @@ class ReportRepository implements ReportRepositoryInterface
             }
             return $report;
         } else {
-            $existingReport->setCount($existingReport->getCount() + 1);
-            $existingReport = $this->resource->save($this->createReportModel($existingReport));
+            try {
+                if (!$this->fetchPolicyReader->canRead($report->getViolatedDirective())) {
+                    $existingReport->setWhitelist(Whitelist::STATUS_NOT_ALLOWED);
+                }
 
+                // Override most recent "original policy"
+                $existingReport->setOriginalPolicy($report->getOriginalPolicy());
+                $existingReport->setCount($existingReport->getCount() + 1);
+                $existingReport = $this->resource->save($this->createReportModel($existingReport));
+            } catch (\Exception $exception) {
+                throw new CouldNotSaveException(__(
+                    'Could not save the report: %1',
+                    $exception->getMessage()
+                ));
+            }
             return $existingReport;
         }
+    }
+
+    /**
+     * @param $report
+     * @return ResourceReport
+     * @throws CouldNotSaveException
+     */
+    public function update($report)
+    {
+        try {
+            $report = $this->resource->save($this->createReportModel($report));
+        } catch (\Exception $exception) {
+            throw new CouldNotSaveException(__(
+                'Could not save the report: %1',
+                $exception->getMessage()
+            ));
+        }
+        return $report;
     }
 
     /**
@@ -147,22 +217,22 @@ class ReportRepository implements ReportRepositoryInterface
         \Magento\Framework\Api\SearchCriteriaInterface $criteria
     ) {
         $collection = $this->reportCollectionFactory->create();
-        
+
         $this->extensionAttributesJoinProcessor->process(
             $collection,
             ReportInterface::class
         );
-        
+
         $this->collectionProcessor->process($criteria, $collection);
-        
+
         $searchResults = $this->searchResultsFactory->create();
         $searchResults->setSearchCriteria($criteria);
-        
+
         $items = [];
         foreach ($collection as $model) {
             $items[] = $model->getDataModel();
         }
-        
+
         $searchResults->setItems($items);
         $searchResults->setTotalCount($collection->getSize());
         return $searchResults;
@@ -203,7 +273,7 @@ class ReportRepository implements ReportRepositoryInterface
      */
     public function doesReportExistAlready($report)
     {
-        if (!$report || $report instanceof ReportInterface == false) {
+        if (!$report || $report instanceof ReportInterface === false) {
             return false;
         }
 
@@ -221,6 +291,7 @@ class ReportRepository implements ReportRepositoryInterface
         foreach ($this->getList($searchCriteria)->getItems() as $item) {
             return $item;
         }
+
         return false;
     }
 
@@ -234,5 +305,22 @@ class ReportRepository implements ReportRepositoryInterface
 
         return $this->reportFactory->create()->setData($reportData);
     }
-}
 
+    /**
+     * Extract host source, leaving scheme-less urls and non-urls intact (i.e. "example.com" and "inline")
+     *
+     * @param string $url
+     * @return string
+     */
+    public function extractHostSource(string $url): string
+    {
+        $scheme = parse_url($url, PHP_URL_SCHEME);
+        $host = parse_url($url, PHP_URL_HOST);
+        if ($scheme && $host && strlen($scheme) > 0 && strlen($host) > 0) {
+            return $scheme . '://' . $host;
+        } elseif ($host && strlen($host) > 0) {
+            return $host;
+        }
+        return $url;
+    }
+}

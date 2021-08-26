@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Experius All rights reserved.
+ * Copyright © Experius B.V. All rights reserved.
  * See COPYING.txt for license details.
  */
 declare(strict_types=1);
@@ -17,6 +17,7 @@ interface ReportInterface extends \Magento\Framework\Api\ExtensibleDataInterface
     const DATE = 'date';
     const BLOCKED_URI = 'blocked_uri';
     const COUNT = 'count';
+    const WHITELIST = 'whitelist';
 
     /**
      * Get report_id
@@ -136,5 +137,15 @@ interface ReportInterface extends \Magento\Framework\Api\ExtensibleDataInterface
      */
     public function setCount($count);
 
-}
+    /**
+     * Get Whitelist
+     * @return string|null
+     */
+    public function getWhitelist();
 
+    /**
+     * @param $whitelist
+     * @return \Experius\Csp\Api\Data\ReportInterface
+     */
+    public function setWhitelist($whitelist);
+}

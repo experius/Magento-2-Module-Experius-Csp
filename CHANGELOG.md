@@ -1,3 +1,66 @@
+## 1.6.0 (2021-08-26)
+
+[View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/1.6.0)
+
+*  [FEATURE][SFIN-60] Started custom whitelist add via admin grid *(martijn.vanhaagen)*
+*  [FEATURE][SFIN-60] Added functionality to whitelist scripts via admin grid + colors in enable/disable + refactored some code *(martijn.vanhaagen)*
+*  [REFACTOR][BUGFIX][DLTM2-617] Store url directive addition doesn't really work properly. Refactored DynamicCollector to properly use scoperesolver supplied by Magento (instead of hard-coded sql). Improved configuration to properly reflect global scope of this setting. *(Boris van Katwijk)*
+*  [REFACTOR][DLTM2-617] Rename policy from "dynamic" to "all-store-urls" to better reflect it's workings. *(Boris van Katwijk)*
+*  [BUGFIX][DLTM2-617] "Add all store urls" to whitelist policy is a "text" configuration whilst it is ment to be a "select" with Yes/No source model. *(Boris van Katwijk)*
+*  [BUGFIX][DLTM2-617] *.[base_url] wildcard system does not work. Reverted it to pure base url logic for adding all store urls. *(Boris van Katwijk)*
+*  [REFACTOR][SFIN-60] Refactor of whitelist addition; it should be full domain to work; "*".[url] wildcard syntax does not seem to work for these. Clarified type of collector by renaming it to "ConfiguredWhitelistCollector". *(Boris van Katwijk)*
+*  [FEATURE][SFIN-60] Made "current policy" hidden for default CSP report view; since it is often very large. *(Boris van Katwijk)*
+*  [FEATURE][SFIN-60] Right trim the slash off all store urls. Correctly extract "host source" from whitelisted urls to add them to the whitelist for the Content Security Policy. *(Boris van Katwijk)*
+*  [FEATURE][ARCI-151] Put collector for all store urls after the configured whitelist collector to also add store urls to custom directives. *(Boris van Katwijk)*
+*  [BUGFIX][ARCI-151] Styling (red and green) doesn't work if "Enabled" or "Disabled" are translated, since it's value is required to be exactly these values for the knockout styling to work. *(Boris van Katwijk)*
+*  [BUGFIX][ARCI-151] Not allowed policies can be reported such as "script-src-elem". Whitelisting these results in breaking all of the CSP whitelist workings. To prevent this only allowed policies can be whitelisted with configuration. *(Boris van Katwijk)*
+*  [REFACTOR][ARCI-151] Move message inside allowed directives for "whitelist action" in csp report listing. Add "De-whitelist" label to whitelist toggle action and make labels translatable strings. *(Boris van Katwijk)*
+*  [REFACTOR][ARCI-151] Refactor name of menu item and reporting page from "Csp Report" to "CSP reporting & whitelist". *(Boris van Katwijk)*
+*  [BUGFIX][SFIN-60][ARCI-151] Existing original policy isn't updated when adding to the hitcount. Update this on upping the hitcount to accurately display the most recent policy. *(Boris van Katwijk)*
+*  [DOCS][ARCI-151] Update copyright to include "B.V." in company name. *(Boris van Katwijk)*
+*  [FEATURE][SFIN-60][ARCI-151] Include "Not allowed" as type of whitelist to clearly display the "violated directives" which aren't allowed to be whitelisted. *(Boris van Katwijk)*
+*  [DOCS][ARCI-151] Updated README.md with new whitelist feature; general update of README.md. *(Boris van Katwijk)*
+
+
+## 1.5.0 (2021-08-25)
+
+[View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/1.5.0)
+
+*  [FEATURE][SBAS-1452] Refactored database queries and added support for alternative media, static or link domains *(René Schep)*
+
+
+## 1.4.0 (2021-08-12)
+
+[View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/1.4.0)
+
+*  [FEATURE][AOM2-172] Started using count in reports *(martijn.vanhaagen)*
+*  [FEATURE][DONS-156] Added delay + fixed filters *(martijn.vanhaagen)*
+*  [BUGFIX][AOM2-172] Fatal error: Uncaught Error: Undefined class constant 'COUNT' in ReportInterface instances. *(Boris van Katwijk)*
+*  [BUGFIX][AOM2-172] Refactor report existance in save() function to properly function without any reports being active. Small simplification/cleanup for ease of reading the code. *(Boris van Katwijk)*
+*  [REFACTOR][AOM2-172] Sleep for a random millisecond instead of microsecond to avoid the difference being smaller than the save time, which would result in duplicate CSP reports. *(Boris van Katwijk)*
+
+
+## 1.3.7 (2021-07-19)
+
+[View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/1.3.7)
+
+*  [FEATURE][SBN-184]  Add google ad services to whitelist *(Matthijs Breed)*
+
+
+## 1.3.6 (2021-06-30)
+
+[View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/1.3.6)
+
+*  Update csp_whitelist.xml *(Hexmage)*
+
+
+## 1.3.5 (2021-06-30)
+
+[View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/1.3.5)
+
+*  Added mouseflow *(Hexmage)*
+
+
 ## 1.3.4 (2021-06-28)
 
 [View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/1.3.4)

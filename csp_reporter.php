@@ -1,7 +1,7 @@
 <?php
 // phpcs:ignoreFile
 /**
- * Copyright © Experius All rights reserved.
+ * Copyright © Experius B.V. All rights reserved.
  * See COPYING.txt for license details.
  */
 $devBootstrap = realpath(__DIR__) . '/app/bootstrap.php';

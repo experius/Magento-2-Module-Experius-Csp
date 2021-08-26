@@ -24,5 +24,7 @@
 			<column name="date"/>
 		</index>
 		<column xsi:type="int" name="count" padding="11" nullable="true" default="1" comment="Count"/>
+		<column xsi:type="smallint" name="whitelist" nullable="false" default="0" comment="Whitelisted"/>
+
 	</table>
 </schema>

@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
 	<menu>
-		<add action="experius_csp/report/index" id="Experius_Csp::experius_csp_report" module="Experius_Csp" parent="Magento_Backend::system_tools" resource="Experius_Csp::report" sortOrder="9999" title="Csp Report"/>
+		<add action="experius_csp/report/index" id="Experius_Csp::experius_csp_report" module="Experius_Csp" parent="Magento_Backend::system_tools" resource="Experius_Csp::report" sortOrder="9999" title="CSP reporting &amp; whitelist"/>
 	</menu>
 </config>

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Experius All rights reserved.
+ * Copyright © Experius B.V. All rights reserved.
  * See COPYING.txt for license details.
  */
 declare(strict_types=1);
@@ -184,5 +184,23 @@ class Report extends \Magento\Framework\Api\AbstractExtensibleObject implements 
         return $this->setData(self::COUNT, $count);
     }
 
+    /**
+     * Get whitelist
+     * @return string|null
+     */
+    public function getWhitelist()
+    {
+        return $this->_get(self::WHITELIST);
+    }
+
+    /**
+     * Set whitelist
+     * @param string $whitelist
+     * @return \Experius\Csp\Api\Data\ReportInterface
+     */
+    public function setWhitelist($whitelist)
+    {
+        return $this->setData(self::WHITELIST, $whitelist);
+    }
 }
 

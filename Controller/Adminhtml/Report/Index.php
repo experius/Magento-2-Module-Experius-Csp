@@ -1,15 +1,19 @@
 <?php
 /**
- * Copyright © Experius All rights reserved.
+ * Copyright © Experius B.V. All rights reserved.
  * See COPYING.txt for license details.
  */
 declare(strict_types=1);
 
 namespace Experius\Csp\Controller\Adminhtml\Report;
 
-class Index extends \Magento\Backend\App\Action
-{
+use Magento\Backend\App\Action;
 
+class Index extends Action
+{
+    /**
+     * @var \Magento\Framework\View\Result\PageFactory
+     */
     protected $resultPageFactory;
 
     /**
@@ -34,8 +38,7 @@ class Index extends \Magento\Backend\App\Action
     public function execute()
     {
         $resultPage = $this->resultPageFactory->create();
-            $resultPage->getConfig()->getTitle()->prepend(__("Report"));
-            return $resultPage;
+        $resultPage->getConfig()->getTitle()->prepend(__('CSP reporting &amp; whitelist'));
+        return $resultPage;
     }
 }
-
