@@ -1,0 +1,8 @@
+.word-break-cell {
+    word-break: break-word;
+}
+
+.violated-directive-cell {
+    max-width: 200px;
+    word-break: normal;
+}
