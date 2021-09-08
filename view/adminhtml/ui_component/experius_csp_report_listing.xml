@@ -60,12 +60,18 @@
 			<settings>
 				<filter>text</filter>
 				<label translate="true">Referrer</label>
+				<fieldClass>
+					<class name="word-break-cell">true</class>
+				</fieldClass>
 			</settings>
 		</column>
 		<column name="violated_directive">
 			<settings>
 				<filter>text</filter>
 				<label translate="true">Violated Directive</label>
+				<fieldClass>
+					<class name="violated-directive-cell">true</class>
+				</fieldClass>
 			</settings>
 		</column>
 		<column name="original_policy">
@@ -79,6 +85,9 @@
 			<settings>
 				<filter>text</filter>
 				<label translate="true">Blocked URI</label>
+				<fieldClass>
+					<class name="word-break-cell">true</class>
+				</fieldClass>
 			</settings>
 		</column>
 		<column name="date">
