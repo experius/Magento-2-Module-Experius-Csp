@@ -17,5 +17,17 @@
                 <reporting_enabled>1</reporting_enabled>
             </general>
         </experius_csp>
+        <policies>
+            <storefront>
+                <frame-ancestors>
+                    <inline>0</inline>
+                </frame-ancestors>
+            </storefront>
+            <admin>
+                <frame-ancestors>
+                    <inline>0</inline>
+                </frame-ancestors>
+            </admin>
+        </policies>
     </default>
 </config>
