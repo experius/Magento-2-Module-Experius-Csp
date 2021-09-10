@@ -18,6 +18,16 @@ interface ReportInterface extends \Magento\Framework\Api\ExtensibleDataInterface
     const BLOCKED_URI = 'blocked_uri';
     const COUNT = 'count';
     const WHITELIST = 'whitelist';
+    // Array of directives that are not in Magento\Csp\Model\Policy\FetchPolicy::POLICIES
+    // but do have a fallback directive (cf. see https://www.w3.org/TR/CSP3/)
+    const DIRECTIVES_TO_FALLBACKS = [
+        'script-src-attr' => 'script-src',
+        'script-src-elem' => 'script-src',
+        'style-src-attr' => 'style-src',
+        'style-src-elem' => 'style-src',
+        'worker-src' => 'child-src',
+//        'prefetch-src' => 'default-src',
+    ];
 
     /**
      * Get report_id

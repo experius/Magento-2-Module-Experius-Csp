@@ -11,7 +11,6 @@ use Experius\Csp\Api\Data\ReportInterface;
 
 class Report extends \Magento\Framework\Api\AbstractExtensibleObject implements ReportInterface
 {
-
     /**
      * Get report_id
      * @return string|null
@@ -95,7 +94,8 @@ class Report extends \Magento\Framework\Api\AbstractExtensibleObject implements 
      */
     public function getViolatedDirective()
     {
-        return $this->_get(self::VIOLATED_DIRECTIVE);
+        $directive = $this->_get(self::VIOLATED_DIRECTIVE);
+        return self::DIRECTIVES_TO_FALLBACKS[$directive] ?? $directive;
     }
 
     /**

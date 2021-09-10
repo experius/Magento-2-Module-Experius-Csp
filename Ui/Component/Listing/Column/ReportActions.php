@@ -8,6 +8,7 @@ declare(strict_types=1);
 namespace Experius\Csp\Ui\Component\Listing\Column;
 
 use Experius\Csp\Model\ReportRepository;
+use Experius\Csp\Api\Data\ReportInterface;
 use Magento\Csp\Model\Collector\Config\FetchPolicyReader;
 use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
@@ -95,7 +96,7 @@ class ReportActions extends Column
                             ]
                         ],
                     ];
-                    if ($this->fetchPolicyReader->canRead($item['violated_directive'])) {
+                    if ($this->reportRepository->canDirectiveBeWhitelisted($item['violated_directive'])) {
                         $message = $item['whitelist'] ? __('Are you sure you want to de-whitelist this record?') : __('Are you sure you want to whitelist this record?');
                         $item[$this->getData('name')]['whitelist'] = [
                             'href' => $this->urlBuilder->getUrl(
