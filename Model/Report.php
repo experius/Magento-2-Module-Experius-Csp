@@ -13,12 +13,20 @@ use Magento\Framework\Api\DataObjectHelper;
 
 class Report extends \Magento\Framework\Model\AbstractModel
 {
-
+    /**
+     * @var DataObjectHelper
+     */
     protected $dataObjectHelper;
 
-    protected $_eventPrefix = 'experius_csp_report';
+    /**
+     * @var ReportInterfaceFactory
+     */
     protected $reportDataFactory;
 
+    /**
+     * @var string
+     */
+    protected $_eventPrefix = 'experius_csp_report';
 
     /**
      * @param \Magento\Framework\Model\Context $context
@@ -50,14 +58,14 @@ class Report extends \Magento\Framework\Model\AbstractModel
     public function getDataModel()
     {
         $reportData = $this->getData();
-        
+
         $reportDataObject = $this->reportDataFactory->create();
         $this->dataObjectHelper->populateWithArray(
             $reportDataObject,
             $reportData,
             ReportInterface::class
         );
-        
+
         return $reportDataObject;
     }
 }

@@ -25,10 +25,9 @@ class Whitelist extends \Experius\Csp\Controller\Adminhtml\Report
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
-        \Magento\Framework\Registry $coreRegistry,
-        ReportRepository $reportRepository
-    )
-    {
+        \Magento\Framework\Registry         $coreRegistry,
+        ReportRepository                    $reportRepository
+    ) {
         $this->reportRepository = $reportRepository;
         parent::__construct($context, $coreRegistry);
     }
