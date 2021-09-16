@@ -1,3 +1,49 @@
+## 1.8.1 (2021-09-16)
+
+[View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/1.8.1)
+
+*  [BUGFIX] Changed in_array to array_key_exists *(René Schep)*
+
+
+## 1.8.0 (2021-09-16)
+
+[View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/1.8.0)
+
+*  [BUGFIX] Remove type-o *(Martijn van den Kerkhof)*
+*  [FEATURE] Implement fallback directives for non-magento-standard directives *(Martijn van den Kerkhof)*
+*  [FEATURE] Minor reformats *(Martijn van den Kerkhof)*
+*  [FEATURE] When checking for existing entries, disregard query strings. *(Martijn van den Kerkhof)*
+*  [BUGFIX] Removed commented code *(Hexmage)*
+
+
+## 1.7.2 (2021-09-09)
+
+[View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/1.7.2)
+
+*  [BUGFIX] Moved policies node to proper location in csp node *(René Schep)*
+
+
+## 1.7.1 (2021-09-09)
+
+[View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/1.7.1)
+
+*  [FEATURE] Fixed 'frame-ancestors' does not support 'unsafe-inline' *(René Schep)*
+
+
+## 1.7.0 (2021-09-09)
+
+[View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/1.7.0)
+
+*  [FEATURE][SBAS-1452] Readded Media and Static urls and changed how urls get stripped *(René Schep)*
+
+
+## 1.6.1 (2021-09-08)
+
+[View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/1.6.1)
+
+*  [FEATURE][EMGA-374] Added styling to prevent listing overflow *(Martijn van den Kerkhof)*
+
+
 ## 1.6.0 (2021-08-26)
 
 [View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/1.6.0)
@@ -209,15 +255,15 @@
 *  [FEATURE][SUBI-145] - Whitelisted reported scripts based on patch 2.3.5-p2 *(Ton Matton)*
 
 
-## 1.1.1 (2020-08-03)
-
-[View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/1.1.1)
-
-
-
 ## 1.2.5 (2020-08-03)
 
 [View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/1.2.5)
+
+
+
+## 1.1.1 (2020-08-03)
+
+[View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/1.1.1)
 
 *  [TASK] Additional defaults proposal *(Derrick Heesbeen)*
 *  Update csp_whitelist.xml *(Derrick Heesbeen)*

@@ -341,7 +341,6 @@ class ReportRepository implements ReportRepositoryInterface
         if ($this->fetchPolicyReader->canRead($directive)) {
             return true;
         }
-
         if ($this->directiveHasFallbackDirective($directive)) {
             return true;
         }
@@ -359,7 +358,7 @@ class ReportRepository implements ReportRepositoryInterface
      */
     public function directiveHasFallbackDirective(string $directive): bool
     {
-        if (in_array($directive, ReportInterface::DIRECTIVES_TO_FALLBACKS)) {
+        if (array_key_exists($directive, ReportInterface::DIRECTIVES_TO_FALLBACKS)) {
             return true;
         }
         return false;
