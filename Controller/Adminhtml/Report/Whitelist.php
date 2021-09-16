@@ -25,10 +25,9 @@ class Whitelist extends \Experius\Csp\Controller\Adminhtml\Report
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
-        \Magento\Framework\Registry $coreRegistry,
-        ReportRepository $reportRepository
-    )
-    {
+        \Magento\Framework\Registry         $coreRegistry,
+        ReportRepository                    $reportRepository
+    ) {
         $this->reportRepository = $reportRepository;
         parent::__construct($context, $coreRegistry);
     }
@@ -48,7 +47,7 @@ class Whitelist extends \Experius\Csp\Controller\Adminhtml\Report
             try {
                 $report = $this->reportRepository->get($id);
 
-                $message = $message = 'You whitelisted the Csp Report.';
+                $message = 'You whitelisted the Csp Report.';
                 if ($report) {
                     $report->getWhitelist() ? $report->setWhitelist(false) && $message = 'You removed the Csp whitelisting for this Report.' : $report->setWhitelist(true);
                     $this->reportRepository->update($report);

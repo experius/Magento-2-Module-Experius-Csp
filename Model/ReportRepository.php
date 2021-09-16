@@ -23,7 +23,6 @@ use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Reflection\DataObjectProcessor;
-use Magento\Store\Model\StoreManagerInterface;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 
 class ReportRepository implements ReportRepositoryInterface
@@ -103,18 +102,18 @@ class ReportRepository implements ReportRepositoryInterface
      * @param FetchPolicyReader $fetchPolicyReader
      */
     public function __construct(
-        ResourceReport $resource,
-        ReportFactory $reportFactory,
-        ReportInterfaceFactory $dataReportFactory,
-        ReportCollectionFactory $reportCollectionFactory,
+        ResourceReport                      $resource,
+        ReportFactory                       $reportFactory,
+        ReportInterfaceFactory              $dataReportFactory,
+        ReportCollectionFactory             $reportCollectionFactory,
         ReportSearchResultsInterfaceFactory $searchResultsFactory,
-        DataObjectHelper $dataObjectHelper,
-        DataObjectProcessor $dataObjectProcessor,
-        CollectionProcessorInterface $collectionProcessor,
-        JoinProcessorInterface $extensionAttributesJoinProcessor,
-        ExtensibleDataObjectConverter $extensibleDataObjectConverter,
-        SearchCriteriaBuilder $searchCriteriaBuilder,
-        FetchPolicyReader $fetchPolicyReader
+        DataObjectHelper                    $dataObjectHelper,
+        DataObjectProcessor                 $dataObjectProcessor,
+        CollectionProcessorInterface        $collectionProcessor,
+        JoinProcessorInterface              $extensionAttributesJoinProcessor,
+        ExtensibleDataObjectConverter       $extensibleDataObjectConverter,
+        SearchCriteriaBuilder               $searchCriteriaBuilder,
+        FetchPolicyReader                   $fetchPolicyReader
     ) {
         $this->resource = $resource;
         $this->reportFactory = $reportFactory;
@@ -147,7 +146,7 @@ class ReportRepository implements ReportRepositoryInterface
 
         if (!$existingReport) {
             try {
-                if (!$this->fetchPolicyReader->canRead($report->getViolatedDirective())) {
+                if (!$this->canDirectiveBeWhitelisted($report->getViolatedDirective())) {
                     $report->setWhitelist(Whitelist::STATUS_NOT_ALLOWED);
                 }
 
@@ -161,7 +160,7 @@ class ReportRepository implements ReportRepositoryInterface
             return $report;
         } else {
             try {
-                if (!$this->fetchPolicyReader->canRead($report->getViolatedDirective())) {
+                if (!$this->canDirectiveBeWhitelisted($report->getViolatedDirective())) {
                     $existingReport->setWhitelist(Whitelist::STATUS_NOT_ALLOWED);
                 }
 
@@ -277,10 +276,13 @@ class ReportRepository implements ReportRepositoryInterface
             return false;
         }
 
+        $strippedBlockedUri = explode('?', $report->getBlockedUri())[0];
+        $strippedDocumentUri = explode('?', $report->getDocumentUri())[0];
+
         $searchCriteria = $this->searchCriteriaBuilder
             ->addFilter(ReportInterface::VIOLATED_DIRECTIVE, $report->getViolatedDirective())
-            ->addFilter(ReportInterface::BLOCKED_URI, $report->getBlockedUri())
-            ->addFilter(ReportInterface::DOCUMENT_URI, $report->getDocumentUri())
+            ->addFilter(ReportInterface::BLOCKED_URI, $strippedBlockedUri . '%', 'like')
+            ->addFilter(ReportInterface::DOCUMENT_URI, $strippedDocumentUri . '%', 'like')
             ->create();
 
         if ($this->getList($searchCriteria)->getTotalCount() < 1) {
@@ -295,6 +297,10 @@ class ReportRepository implements ReportRepositoryInterface
         return false;
     }
 
+    /**
+     * @param $report
+     * @return Report
+     */
     public function createReportModel($report)
     {
         $reportData = $this->extensibleDataObjectConverter->toNestedArray(
@@ -322,5 +328,40 @@ class ReportRepository implements ReportRepositoryInterface
             return $host;
         }
         return $url;
+    }
+
+    /**
+     * Check if the violated directive can be whitelisted
+     *
+     * @param string $directive
+     * @return bool
+     */
+    public function canDirectiveBeWhitelisted(string $directive): bool
+    {
+        if ($this->fetchPolicyReader->canRead($directive)) {
+            return true;
+        }
+
+        if ($this->directiveHasFallbackDirective($directive)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if a given directive has a fallback.
+     *
+     * see https://www.w3.org/TR/CSP3/
+     *
+     * @param string $directive
+     * @return bool
+     */
+    public function directiveHasFallbackDirective(string $directive): bool
+    {
+        if (in_array($directive, ReportInterface::DIRECTIVES_TO_FALLBACKS)) {
+            return true;
+        }
+        return false;
     }
 }
