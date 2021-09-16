@@ -26,7 +26,6 @@ interface ReportInterface extends \Magento\Framework\Api\ExtensibleDataInterface
         'style-src-attr' => 'style-src',
         'style-src-elem' => 'style-src',
         'worker-src' => 'child-src',
-//        'prefetch-src' => 'default-src',
     ];
 
     /**
