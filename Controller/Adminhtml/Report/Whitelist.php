@@ -87,7 +87,7 @@ class Whitelist extends \Experius\Csp\Controller\Adminhtml\Report
         return $resultRedirect->setPath('*/*/');
     }
 
-    private function checkForIdenticalReports(
+    public function checkForIdenticalReports(
         ReportInterface $report,
         bool $whitelisted
     ) {
