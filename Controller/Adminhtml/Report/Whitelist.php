@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace Experius\Csp\Controller\Adminhtml\Report;
 
+use Experius\Csp\Api\Data\ReportInterface;
 use Experius\Csp\Model\ReportRepository;
 
 class Whitelist extends \Experius\Csp\Controller\Adminhtml\Report
@@ -47,10 +48,18 @@ class Whitelist extends \Experius\Csp\Controller\Adminhtml\Report
             try {
                 $report = $this->reportRepository->get($id);
 
-                $message = 'You whitelisted the Csp Report.';
                 if ($report) {
-                    $report->getWhitelist() ? $report->setWhitelist(false) && $message = 'You removed the Csp whitelisting for this Report.' : $report->setWhitelist(true);
+                    if ($report->getWhitelist()) {
+                        $report->setWhitelist(false);
+                        $message = 'You removed the Csp whitelisting for this Report.';
+                        $whitelisted = false;
+                    } else {
+                        $report->setWhitelist(true);
+                        $message = 'You whitelisted the Csp Report.';
+                        $whitelisted = true;
+                    }
                     $this->reportRepository->update($report);
+                    $this->checkForIdenticalReports($report, $whitelisted);
                 }
 
                 // display success message
@@ -68,6 +77,26 @@ class Whitelist extends \Experius\Csp\Controller\Adminhtml\Report
         $this->messageManager->addErrorMessage(__('We can\'t find a Csp Report to whitelist.'));
         // go to grid
         return $resultRedirect->setPath('*/*/');
+    }
+
+    private function checkForIdenticalReports(
+        ReportInterface $report,
+        bool $whitelisted
+    ) {
+        $searchCriteria = $this->searchCriteriaBuilder
+            ->addFilter('whitelist', $whitelisted ? 0 : 1)
+            ->create();
+        $nonWhitelistedReports = $this->reportRepository->getList($searchCriteria);
+        foreach($nonWhitelistedReports->getItems() as $nonWhitelistedReport) {
+            if ($nonWhitelistedReport->getBlockedUri() === $report->getBlockedUri()
+                && $nonWhitelistedReport->getViolatedDirective() === $report->getViolatedDirective()
+            ) {
+                $whitelisted
+                    ? $nonWhitelistedReport->setWhitelist(true)
+                    : $nonWhitelistedReport->setWhitelist(false);
+                $this->reportRepository->update($nonWhitelistedReport);
+            }
+        }
     }
 }
 
