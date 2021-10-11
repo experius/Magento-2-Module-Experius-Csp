@@ -9,9 +9,15 @@ namespace Experius\Csp\Controller\Adminhtml\Report;
 
 use Experius\Csp\Api\Data\ReportInterface;
 use Experius\Csp\Model\ReportRepository;
+use Experius\Elasticsearch\Lib\Search;
+use Magento\Framework\Api\SearchCriteriaBuilder;
 
 class Whitelist extends \Experius\Csp\Controller\Adminhtml\Report
 {
+    /**
+     * @var SearchCriteriaBuilder
+     */
+    protected $searchCriteriaBuilder;
 
     /**
      * @var ReportRepository
@@ -23,13 +29,16 @@ class Whitelist extends \Experius\Csp\Controller\Adminhtml\Report
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Framework\Registry $coreRegistry
      * @param ReportRepository $reportRepository
+     * @param SearchCriteriaBuilder $searchCriteriaBuilder
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\Registry         $coreRegistry,
-        ReportRepository                    $reportRepository
+        ReportRepository                    $reportRepository,
+        SearchCriteriaBuilder               $searchCriteriaBuilder
     ) {
         $this->reportRepository = $reportRepository;
+        $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         parent::__construct($context, $coreRegistry);
     }
 
@@ -85,17 +94,20 @@ class Whitelist extends \Experius\Csp\Controller\Adminhtml\Report
     ) {
         $searchCriteria = $this->searchCriteriaBuilder
             ->addFilter('whitelist', $whitelisted ? 0 : 1)
+            ->addFilter('blocked_uri', $report->getBlockedUri())
+            ->addFilter('violated_directive', $report->getViolatedDirective())
             ->create();
-        $nonWhitelistedReports = $this->reportRepository->getList($searchCriteria);
-        foreach($nonWhitelistedReports->getItems() as $nonWhitelistedReport) {
-            if ($nonWhitelistedReport->getBlockedUri() === $report->getBlockedUri()
-                && $nonWhitelistedReport->getViolatedDirective() === $report->getViolatedDirective()
-            ) {
-                $whitelisted
-                    ? $nonWhitelistedReport->setWhitelist(true)
-                    : $nonWhitelistedReport->setWhitelist(false);
-                $this->reportRepository->update($nonWhitelistedReport);
-            }
+
+        $identicalReports = $this->reportRepository->getList($searchCriteria)->getItems();
+        if (!count($identicalReports)) {
+            return;
+        }
+
+        foreach($identicalReports as $identicalReport) {
+            $whitelisted
+                ? $identicalReport->setWhitelist(true)
+                : $identicalReport->setWhitelist(false);
+            $this->reportRepository->update($identicalReport);
         }
     }
 }
