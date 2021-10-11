@@ -9,7 +9,6 @@ namespace Experius\Csp\Controller\Adminhtml\Report;
 
 use Experius\Csp\Api\Data\ReportInterface;
 use Experius\Csp\Model\ReportRepository;
-use Experius\Elasticsearch\Lib\Search;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 
 class Whitelist extends \Experius\Csp\Controller\Adminhtml\Report
