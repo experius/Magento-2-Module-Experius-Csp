@@ -7,15 +7,23 @@ declare(strict_types=1);
 
 namespace Experius\Csp\Model\Report;
 
+use Experius\Csp\Model\ResourceModel\Report\Collection;
 use Experius\Csp\Model\ResourceModel\Report\CollectionFactory;
 use Magento\Framework\App\Request\DataPersistorInterface;
+use Magento\Ui\DataProvider\AbstractDataProvider;
 
-class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
+class DataProvider extends AbstractDataProvider
 {
 
     protected $loadedData;
+    /**
+     * @var Collection
+     */
     protected $collection;
 
+    /**
+     * @var DataPersistorInterface
+     */
     protected $dataPersistor;
 
 

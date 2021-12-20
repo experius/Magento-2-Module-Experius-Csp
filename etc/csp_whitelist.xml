@@ -24,10 +24,8 @@
         </policy>
         <policy id="script-src">
             <values>
-                <value id="scripts_google" type="host">google.com</value>
-                <value id="www_scripts_google" type="host">www.google.com</value>
-                <value id="scripts_gstatic" type="host">gstatic.com</value>
-                <value id="www_scripts_gstatic" type="host">www.gstatic.com</value>
+                <value id="scripts_google" type="host">*.google.com</value>
+                <value id="scripts_gstatic" type="host">*.gstatic.com</value>
                 <value id="google_tagmanager" type="host">*.googletagmanager.com</value>
                 <value id="googleapis" type="host">*.googleapis.com</value>
                 <value id="googleadservices" type="host">*.googleadservices.com</value>
@@ -52,8 +50,8 @@
                 <value id="newrelic" type="host">*.newrelic.com</value>
                 <value id="newrelic-data" type="host">*.nr-data.net</value>
                 <value id="jsdelivr" type="host">cdn.jsdelivr.net</value>
-                <value id="googleoptimize" type="host">www.googleoptimize.com</value>
-                <value id="clarity" type="host">www.clarity.ms</value>
+                <value id="googleoptimize" type="host">*.googleoptimize.com</value>
+                <value id="clarity" type="host">*.clarity.ms</value>
                 <value id="datatrics-script" type="host">*.datatrics.com</value>
                 <value id="criteo-net-script" type="host">*.criteo.net</value>
                 <value id="criteo-com-script" type="host">*.criteo.com</value>
@@ -64,8 +62,7 @@
         <policy id="frame-src">
             <values>
                 <value id="dotmailer_cdn_dnky" type="host">cdn.dnky.co</value>
-                <value id="youtube" type="host">youtube.com</value>
-                <value id="www_youtube" type="host">www.youtube.com</value>
+                <value id="youtube" type="host">*.youtube.com</value>
                 <value id="hotjar" type="host">*.hotjar.com</value>
                 <value id="google" type="host">*.google.com</value>
                 <value id="facebook-frame" type="host">*.facebook.com</value>
@@ -75,23 +72,21 @@
         </policy>
         <policy id="img-src">
             <values>
-                <value id="google_com" type="host">www.google.com</value>
-                <value id="google_nl" type="host">www.google.nl</value>
+                <value id="google_com" type="host">*.google.com</value>
+                <value id="google_nl" type="host">*.google.nl</value>
                 <value id="data" type="host">data:</value>
                 <value id="connect_onlinesuccess" type="host">connect.onlinesucces.nl</value>
                 <value id="px_ads_linkedin_com" type="host">px.ads.linkedin.com</value>
                 <value id="stats_g_doubleclick" type="host">stats.g.doubleclick.net</value>
                 <value id="googleapis" type="host">*.googleapis.com</value>
                 <value id="gstatic" type="host">*.gstatic.com</value>
-                <value id="www_linkedin" type="host">www.linkedin.com</value>
-                <value id="linkedin" type="host">linkedin.com</value>
-                <value id="www_googletagmanager_com" type="host">www.googletagmanager.com</value>
-                <value id="googletagmanager_com" type="host">googletagmanager.com</value>
+                <value id="www_linkedin" type="host">*.linkedin.com</value>
+                <value id="googletagmanager_com" type="host">*.googletagmanager.com</value>
                 <value id="gallery_mailchimp_com" type="host">gallery.mailchimp.com</value>
                 <value id="amcglobal" type="host">amcglobal.sc.omtrdc.net</value>
                 <value id="everesttech" type="host">cm.everesttech.net</value>
                 <value id="trustedshops" type="host">*.trustedshops.com</value>
-                <value id="facebook-img" type="host">www.facebook.com</value>
+                <value id="facebook-img" type="host">*.facebook.com</value>
                 <value id="zopim" type="host">*.zopim.com</value>
                 <value id="magentocommerce" type="host">widgets.magentocommerce.com</value>
                 <value id="jsdelivr" type="host">cdn.jsdelivr.net</value>
@@ -105,8 +100,7 @@
             <values>
                 <value id="commerce_adobedc" type="host">commerce.adobedc.net</value>
                 <value id="dotmailer_comapi" type="host">api.comapi.com</value>
-                <value id="google_analytics" type="host">google-analytics.com</value>
-                <value id="www_google_analytics" type="host">www.google-analytics.com</value>
+                <value id="google_analytics" type="host">*.google-analytics.com</value>
                 <value id="stats_g_doubleclick" type="host">stats.g.doubleclick.net</value>
                 <value id="zdassets" type="host">*.zdassets.com</value>
                 <value id="hotjar-com" type="host">*.hotjar.com</value>
@@ -118,7 +112,7 @@
                 <value id="amcglobal" type="host">amcglobal.sc.omtrdc.net</value>
                 <value id="zendesk" type="host">*.zendesk.com</value>
                 <value id="newrelic-data" type="host">*.nr-data.net</value>
-                <value id="clarity" type="host">www.clarity.ms</value>
+                <value id="clarity" type="host">*.clarity.ms</value>
                 <value id="dpm_demdex" type="host">dpm.demdex.net</value>
                 <value id="facebook-connect" type="host">*.facebook.com</value>
                 <value id="datatrics-connect" type="host">*.datatrics.com</value>
@@ -126,7 +120,7 @@
         </policy>
         <policy id="form-action">
             <values>
-                <value id="facebook-form" type="host">www.facebook.com</value>
+                <value id="facebook-form" type="host">*.facebook.com</value>
             </values>
         </policy>
         <policy id="media-src">

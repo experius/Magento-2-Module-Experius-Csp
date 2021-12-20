@@ -7,55 +7,59 @@ declare(strict_types=1);
 
 namespace Experius\Csp\Api;
 
+use Experius\Csp\Api\Data\ReportInterface;
+use Experius\Csp\Api\Data\ReportSearchResultsInterface;
 use Magento\Framework\Api\SearchCriteriaInterface;
+use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Exception\NoSuchEntityException;
 
 interface ReportRepositoryInterface
 {
 
     /**
      * Save Report
-     * @param \Experius\Csp\Api\Data\ReportInterface $report
-     * @return \Experius\Csp\Api\Data\ReportInterface
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @param ReportInterface $report
+     * @return ReportInterface
+     * @throws LocalizedException
      */
     public function save(
-        \Experius\Csp\Api\Data\ReportInterface $report
+        ReportInterface $report
     );
 
     /**
      * Retrieve Report
      * @param string $reportId
-     * @return \Experius\Csp\Api\Data\ReportInterface
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @return ReportInterface
+     * @throws LocalizedException
      */
     public function get($reportId);
 
     /**
      * Retrieve Report matching the specified criteria.
-     * @param \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
-     * @return \Experius\Csp\Api\Data\ReportSearchResultsInterface
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @param SearchCriteriaInterface $searchCriteria
+     * @return ReportSearchResultsInterface
+     * @throws LocalizedException
      */
     public function getList(
-        \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
+        SearchCriteriaInterface $searchCriteria
     );
 
     /**
      * Delete Report
-     * @param \Experius\Csp\Api\Data\ReportInterface $report
+     * @param ReportInterface $report
      * @return bool true on success
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws LocalizedException
      */
     public function delete(
-        \Experius\Csp\Api\Data\ReportInterface $report
+        ReportInterface $report
     );
 
     /**
      * Delete Report by ID
      * @param string $reportId
      * @return bool true on success
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws NoSuchEntityException
+     * @throws LocalizedException
      */
     public function deleteById($reportId);
 }
