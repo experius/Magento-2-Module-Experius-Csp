@@ -10,7 +10,7 @@
             <resource>Experius_Csp::config_experius_csp</resource>
             <group id="general" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" translate="label">
                 <label>General</label>
-                <field id="add_all_storefront_urls" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0" translate="label comment">
+                <field id="add_all_storefront_urls" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0" translate="label comment">
                     <label>Add all storefront urls</label>
                     <comment>This adds all base urls of the available storefronts for this Magento installation to the csp_whitelist.</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
@@ -19,6 +19,42 @@
                     <label>Reporting enabled</label>
                     <comment>Disable to stop reporting to database temporarily.</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="whitelist" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0" translate="label">
+                <label>Whitelist</label>
+                <field id="default" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="1" translate="label comment">
+                    <label>default-src</label>
+                </field>
+                <field id="child" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="1" translate="label comment">
+                    <label>child-src</label>
+                </field>
+                <field id="connect" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="1" translate="label comment">
+                    <label>connect-src</label>
+                </field>
+                <field id="font" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="1" translate="label comment">
+                    <label>font-src</label>
+                </field>
+                <field id="frame" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="1" translate="label comment">
+                    <label>frame-src</label>
+                </field>
+                <field id="img" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="1" translate="label comment">
+                    <label>img-src</label>
+                </field>
+                <field id="manifest" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="1" translate="label comment">
+                    <label>manifest-src</label>
+                </field>
+                <field id="media" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="1" translate="label comment">
+                    <label>media-src</label>
+                </field>
+                <field id="object" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="1" translate="label comment">
+                    <label>object-src</label>
+                </field>
+                <field id="script" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="1" translate="label comment">
+                    <label>script-src</label>
+                </field>
+                <field id="style" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="1" translate="label comment">
+                    <label>style-src</label>
                 </field>
             </group>
         </section>

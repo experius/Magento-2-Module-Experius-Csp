@@ -46,7 +46,7 @@
 			</argument>
 			<settings>
 				<dataType>text</dataType>
-				<label translate="true">Document URI</label>
+				<label translate="true">First detected Document URI</label>
 				<dataScope>document_uri</dataScope>
 				<validation>
 					<rule name="required-entry" xsi:type="boolean">false</rule>
@@ -61,7 +61,7 @@
 			</argument>
 			<settings>
 				<dataType>text</dataType>
-				<label translate="true">Referrer</label>
+				<label translate="true">First detected Referrer</label>
 				<dataScope>referrer</dataScope>
 				<validation>
 					<rule name="required-entry" xsi:type="boolean">false</rule>

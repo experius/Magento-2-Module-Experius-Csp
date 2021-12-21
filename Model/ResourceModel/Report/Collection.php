@@ -7,7 +7,11 @@ declare(strict_types=1);
 
 namespace Experius\Csp\Model\ResourceModel\Report;
 
-class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
+use Experius\Csp\Model\Report;
+use Experius\Csp\Model\ResourceModel\Report as ResourceModelReport;
+use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
+
+class Collection extends AbstractCollection
 {
 
     /**
@@ -23,8 +27,8 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
     protected function _construct()
     {
         $this->_init(
-            \Experius\Csp\Model\Report::class,
-            \Experius\Csp\Model\ResourceModel\Report::class
+            Report::class,
+            ResourceModelReport::class
         );
     }
 }

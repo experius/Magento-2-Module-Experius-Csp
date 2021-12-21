@@ -58,16 +58,16 @@ class StoreUrlCollector implements PolicyCollectorInterface
      */
     public function collect(array $defaultPolicies = []): array
     {
-        if (!$this->isEnabled() || !$defaultPolicies) {
+        if (!$this->isEnabled()) {
             return $defaultPolicies;
         }
 
         $policies = $defaultPolicies;
 
         // Append all store urls to all default policies
-        foreach ($defaultPolicies as $policy) {
+        foreach (FetchPolicy::POLICIES as $policy) {
             $policies[] = new FetchPolicy(
-                $policy->getId(),
+                $policy,
                 false,
                 $this->getStoreUrls(),
                 [],

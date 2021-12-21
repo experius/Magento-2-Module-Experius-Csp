@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace Experius\Csp\Model;
 
+use Exception;
 use Experius\Csp\Api\Data\ReportInterface;
 use Experius\Csp\Api\Data\ReportInterfaceFactory;
 use Experius\Csp\Api\Data\ReportSearchResultsInterfaceFactory;
@@ -19,6 +20,7 @@ use Magento\Framework\Api\DataObjectHelper;
 use Magento\Framework\Api\ExtensibleDataObjectConverter;
 use Magento\Framework\Api\ExtensionAttribute\JoinProcessorInterface;
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
+use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
@@ -75,7 +77,7 @@ class ReportRepository implements ReportRepositoryInterface
     /**
      * @var CollectionProcessorInterface
      */
-    private $collectionProcessor;
+    protected $collectionProcessor;
 
     /**
      * @var SearchCriteriaBuilder
@@ -142,6 +144,13 @@ class ReportRepository implements ReportRepositoryInterface
         // Sleep for a random millisecond to prevent double saves
         $sleep = rand(1000, 1000000);
         usleep($sleep);
+        //Strip blocked uri down to the base url.
+        //@TODO: [Nice to have] Replace subdomain with wildcard. Very hard to do with regular regex, most likely need a library.
+        //    lot of possible exceptions:
+        //    No subdomain: "example.org",
+        //    Subdomain containing 1 or multiple "."s: "test.domain.example.org",
+        //    Url suffix contains multiple "."s: www.example.co.uk
+        $report->setBlockedUri($this->extractHostSource($report->getBlockedUri()));
         $existingReport = $this->doesReportExistAlready($report);
 
         if (!$existingReport) {
@@ -150,8 +159,8 @@ class ReportRepository implements ReportRepositoryInterface
                     $report->setWhitelist(Whitelist::STATUS_NOT_ALLOWED);
                 }
 
-                $report = $this->resource->save($this->createReportModel($report));
-            } catch (\Exception $exception) {
+                $report = $this->resource->save($report);
+            } catch (Exception $exception) {
                 throw new CouldNotSaveException(__(
                     'Could not save the report: %1',
                     $exception->getMessage()
@@ -160,15 +169,11 @@ class ReportRepository implements ReportRepositoryInterface
             return $report;
         } else {
             try {
-                if (!$this->canDirectiveBeWhitelisted($report->getViolatedDirective())) {
-                    $existingReport->setWhitelist(Whitelist::STATUS_NOT_ALLOWED);
-                }
-
                 // Override most recent "original policy"
                 $existingReport->setOriginalPolicy($report->getOriginalPolicy());
                 $existingReport->setCount($existingReport->getCount() + 1);
-                $existingReport = $this->resource->save($this->createReportModel($existingReport));
-            } catch (\Exception $exception) {
+                $existingReport = $this->resource->save($existingReport);
+            } catch (Exception $exception) {
                 throw new CouldNotSaveException(__(
                     'Could not save the report: %1',
                     $exception->getMessage()
@@ -186,8 +191,8 @@ class ReportRepository implements ReportRepositoryInterface
     public function update($report)
     {
         try {
-            $report = $this->resource->save($this->createReportModel($report));
-        } catch (\Exception $exception) {
+            $report = $this->resource->save($report);
+        } catch (Exception $exception) {
             throw new CouldNotSaveException(__(
                 'Could not save the report: %1',
                 $exception->getMessage()
@@ -206,21 +211,16 @@ class ReportRepository implements ReportRepositoryInterface
         if (!$report->getId()) {
             throw new NoSuchEntityException(__('Report with id "%1" does not exist.', $reportId));
         }
-        return $report->getDataModel();
+        return $report;
     }
 
     /**
      * {@inheritdoc}
      */
     public function getList(
-        \Magento\Framework\Api\SearchCriteriaInterface $criteria
+        SearchCriteriaInterface $criteria
     ) {
         $collection = $this->reportCollectionFactory->create();
-
-        $this->extensionAttributesJoinProcessor->process(
-            $collection,
-            ReportInterface::class
-        );
 
         $this->collectionProcessor->process($criteria, $collection);
 
@@ -229,7 +229,7 @@ class ReportRepository implements ReportRepositoryInterface
 
         $items = [];
         foreach ($collection as $model) {
-            $items[] = $model->getDataModel();
+            $items[] = $model;
         }
 
         $searchResults->setItems($items);
@@ -247,7 +247,7 @@ class ReportRepository implements ReportRepositoryInterface
             $reportModel = $this->reportFactory->create();
             $this->resource->load($reportModel, $report->getReportId());
             $this->resource->delete($reportModel);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             throw new CouldNotDeleteException(__(
                 'Could not delete the Report: %1',
                 $exception->getMessage()
@@ -276,13 +276,9 @@ class ReportRepository implements ReportRepositoryInterface
             return false;
         }
 
-        $strippedBlockedUri = explode('?', $report->getBlockedUri())[0];
-        $strippedDocumentUri = explode('?', $report->getDocumentUri())[0];
-
         $searchCriteria = $this->searchCriteriaBuilder
             ->addFilter(ReportInterface::VIOLATED_DIRECTIVE, $report->getViolatedDirective())
-            ->addFilter(ReportInterface::BLOCKED_URI, $strippedBlockedUri . '%', 'like')
-            ->addFilter(ReportInterface::DOCUMENT_URI, $strippedDocumentUri . '%', 'like')
+            ->addFilter(ReportInterface::BLOCKED_URI, $report->getBlockedUri())
             ->create();
 
         if ($this->getList($searchCriteria)->getTotalCount() < 1) {
@@ -298,21 +294,6 @@ class ReportRepository implements ReportRepositoryInterface
     }
 
     /**
-     * @param $report
-     * @return Report
-     */
-    public function createReportModel($report)
-    {
-        $reportData = $this->extensibleDataObjectConverter->toNestedArray(
-            $report,
-            [],
-            ReportInterface::class
-        );
-
-        return $this->reportFactory->create()->setData($reportData);
-    }
-
-    /**
      * Extract host source, leaving scheme-less urls and non-urls intact (i.e. "example.com" and "inline")
      *
      * @param string $url
@@ -320,11 +301,8 @@ class ReportRepository implements ReportRepositoryInterface
      */
     public function extractHostSource(string $url): string
     {
-        $scheme = parse_url($url, PHP_URL_SCHEME);
         $host = parse_url($url, PHP_URL_HOST);
-        if ($scheme && $host && strlen($scheme) > 0 && strlen($host) > 0) {
-            return $scheme . '://' . $host;
-        } elseif ($host && strlen($host) > 0) {
+        if ($host && strlen($host) > 0) {
             return $host;
         }
         return $url;

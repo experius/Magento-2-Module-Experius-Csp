@@ -7,7 +7,9 @@ declare(strict_types=1);
 
 namespace Experius\Csp\Model\ResourceModel;
 
-class Report extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
+use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
+
+class Report extends AbstractDb
 {
 
     /**

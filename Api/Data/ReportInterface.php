@@ -7,7 +7,7 @@ declare(strict_types=1);
 
 namespace Experius\Csp\Api\Data;
 
-interface ReportInterface extends \Magento\Framework\Api\ExtensibleDataInterface
+interface ReportInterface
 {
     const VIOLATED_DIRECTIVE = 'violated_directive';
     const REPORT_ID = 'report_id';
@@ -37,7 +37,7 @@ interface ReportInterface extends \Magento\Framework\Api\ExtensibleDataInterface
     /**
      * Set report_id
      * @param string $reportId
-     * @return \Experius\Csp\Api\Data\ReportInterface
+     * @return $this
      */
     public function setReportId($reportId);
 
@@ -50,24 +50,9 @@ interface ReportInterface extends \Magento\Framework\Api\ExtensibleDataInterface
     /**
      * Set document_uri
      * @param string $documentUri
-     * @return \Experius\Csp\Api\Data\ReportInterface
-     */
-    public function setDocumentUri($documentUri);
-
-    /**
-     * Retrieve existing extension attributes object or create a new one.
-     * @return \Experius\Csp\Api\Data\ReportExtensionInterface|null
-     */
-    public function getExtensionAttributes();
-
-    /**
-     * Set an extension attributes object.
-     * @param \Experius\Csp\Api\Data\ReportExtensionInterface $extensionAttributes
      * @return $this
      */
-    public function setExtensionAttributes(
-        \Experius\Csp\Api\Data\ReportExtensionInterface $extensionAttributes
-    );
+    public function setDocumentUri($documentUri);
 
     /**
      * Get referrer
@@ -78,7 +63,7 @@ interface ReportInterface extends \Magento\Framework\Api\ExtensibleDataInterface
     /**
      * Set referrer
      * @param string $referrer
-     * @return \Experius\Csp\Api\Data\ReportInterface
+     * @return $this
      */
     public function setReferrer($referrer);
 
@@ -91,7 +76,7 @@ interface ReportInterface extends \Magento\Framework\Api\ExtensibleDataInterface
     /**
      * Set violated_directive
      * @param string $violatedDirective
-     * @return \Experius\Csp\Api\Data\ReportInterface
+     * @return $this
      */
     public function setViolatedDirective($violatedDirective);
 
@@ -104,7 +89,7 @@ interface ReportInterface extends \Magento\Framework\Api\ExtensibleDataInterface
     /**
      * Set original_policy
      * @param string $originalPolicy
-     * @return \Experius\Csp\Api\Data\ReportInterface
+     * @return $this
      */
     public function setOriginalPolicy($originalPolicy);
 
@@ -117,7 +102,7 @@ interface ReportInterface extends \Magento\Framework\Api\ExtensibleDataInterface
     /**
      * Set blocked_uri
      * @param string $blockedUri
-     * @return \Experius\Csp\Api\Data\ReportInterface
+     * @return $this
      */
     public function setBlockedUri($blockedUri);
 
@@ -130,7 +115,7 @@ interface ReportInterface extends \Magento\Framework\Api\ExtensibleDataInterface
     /**
      * Set date
      * @param string $date
-     * @return \Experius\Csp\Api\Data\ReportInterface
+     * @return $this
      */
     public function setDate($date);
 
@@ -142,7 +127,7 @@ interface ReportInterface extends \Magento\Framework\Api\ExtensibleDataInterface
 
     /**
      * @param $count
-     * @return \Experius\Csp\Api\Data\ReportInterface
+     * @return $this
      */
     public function setCount($count);
 
@@ -154,7 +139,7 @@ interface ReportInterface extends \Magento\Framework\Api\ExtensibleDataInterface
 
     /**
      * @param $whitelist
-     * @return \Experius\Csp\Api\Data\ReportInterface
+     * @return $this
      */
     public function setWhitelist($whitelist);
 }

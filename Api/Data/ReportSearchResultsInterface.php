@@ -7,18 +7,20 @@ declare(strict_types=1);
 
 namespace Experius\Csp\Api\Data;
 
-interface ReportSearchResultsInterface extends \Magento\Framework\Api\SearchResultsInterface
+use Magento\Framework\Api\SearchResultsInterface;
+
+interface ReportSearchResultsInterface extends SearchResultsInterface
 {
 
     /**
      * Get Report list.
-     * @return \Experius\Csp\Api\Data\ReportInterface[]
+     * @return ReportInterface[]
      */
     public function getItems();
 
     /**
      * Set document_uri list.
-     * @param \Experius\Csp\Api\Data\ReportInterface[] $items
+     * @param ReportInterface[] $items
      * @return $this
      */
     public function setItems(array $items);

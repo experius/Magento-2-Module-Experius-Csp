@@ -14,7 +14,7 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Experius\Csp\Model\ReportRepository;
 
-class ConfiguredWhitelistCollector implements PolicyCollectorInterface
+class ReportWhitelistCollector implements PolicyCollectorInterface
 {
     /**
      * @var ResourceConnection
@@ -66,14 +66,13 @@ class ConfiguredWhitelistCollector implements PolicyCollectorInterface
      */
     public function collect(array $defaultPolicies = []): array
     {
-        if (!$defaultPolicies) {
-            return $defaultPolicies;
-        }
-
         $policies = $defaultPolicies;
         $customWhitelist = $this->collectCustomWhitelist();
+        if (!$customWhitelist) {
+            return $policies;
+        }
         foreach ($customWhitelist as $whitelist) {
-            $hostSource = $this->reportRepository->extractHostSource($whitelist->getBlockedUri());
+            $hostSource = $whitelist->getBlockedUri();
             // Skip empty entries
             if (strlen($hostSource) < 1) {
                 continue;
@@ -113,7 +112,6 @@ class ConfiguredWhitelistCollector implements PolicyCollectorInterface
         if ($whitelistedCspEntities->getTotalCount() < 1) {
             return [];
         }
-
         return $whitelistedCspEntities->getItems();
     }
 }
