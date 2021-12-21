@@ -155,7 +155,8 @@ class ReportRepository implements ReportRepositoryInterface
 
         if (!$existingReport) {
             try {
-                if (!$this->canDirectiveBeWhitelisted($report->getViolatedDirective())) {
+                if (!$this->canDirectiveBeWhitelisted($report->getFallbackDirective())) {
+                    $report->setViolatedDirective($report->getFallbackDirective());
                     $report->setWhitelist(Whitelist::STATUS_NOT_ALLOWED);
                 }
 
@@ -184,11 +185,11 @@ class ReportRepository implements ReportRepositoryInterface
     }
 
     /**
-     * @param $report
+     * @param ReportInterface $report
      * @return ResourceReport
      * @throws CouldNotSaveException
      */
-    public function update($report)
+    public function update(ReportInterface $report)
     {
         try {
             $report = $this->resource->save($report);
@@ -218,14 +219,14 @@ class ReportRepository implements ReportRepositoryInterface
      * {@inheritdoc}
      */
     public function getList(
-        SearchCriteriaInterface $criteria
+        SearchCriteriaInterface $searchCriteria
     ) {
         $collection = $this->reportCollectionFactory->create();
 
-        $this->collectionProcessor->process($criteria, $collection);
+        $this->collectionProcessor->process($searchCriteria, $collection);
 
         $searchResults = $this->searchResultsFactory->create();
-        $searchResults->setSearchCriteria($criteria);
+        $searchResults->setSearchCriteria($searchCriteria);
 
         $items = [];
         foreach ($collection as $model) {
@@ -267,17 +268,17 @@ class ReportRepository implements ReportRepositoryInterface
     /**
      * Does report exist already?
      *
-     * @param $report
+     * @param ReportInterface $report
      * @return ReportInterface|false
      */
-    public function doesReportExistAlready($report)
+    public function doesReportExistAlready(ReportInterface $report)
     {
         if (!$report || $report instanceof ReportInterface === false) {
             return false;
         }
 
         $searchCriteria = $this->searchCriteriaBuilder
-            ->addFilter(ReportInterface::VIOLATED_DIRECTIVE, $report->getViolatedDirective())
+            ->addFilter(ReportInterface::VIOLATED_DIRECTIVE, $report->getFallbackDirective())
             ->addFilter(ReportInterface::BLOCKED_URI, $report->getBlockedUri())
             ->create();
 

@@ -74,14 +74,19 @@ class Report extends AbstractModel implements ReportInterface
         return $this->setData(self::REFERRER, $referrer);
     }
 
+    public function getFallbackDirective()
+    {
+        $directive = $this->getData(self::VIOLATED_DIRECTIVE);
+        return self::DIRECTIVES_TO_FALLBACKS[$directive] ?? $directive;
+    }
+
     /**
      * Get violated_directive
      * @return string|null
      */
     public function getViolatedDirective()
     {
-        $directive = $this->getData(self::VIOLATED_DIRECTIVE);
-        return self::DIRECTIVES_TO_FALLBACKS[$directive] ?? $directive;
+        return $this->getData(self::VIOLATED_DIRECTIVE);
     }
 
     /**
