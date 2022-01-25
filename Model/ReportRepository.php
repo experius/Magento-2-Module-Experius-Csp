@@ -156,10 +156,10 @@ class ReportRepository implements ReportRepositoryInterface
         if (!$existingReport) {
             try {
                 if (!$this->canDirectiveBeWhitelisted($report->getFallbackDirective())) {
-                    $report->setViolatedDirective($report->getFallbackDirective());
                     $report->setWhitelist(Whitelist::STATUS_NOT_ALLOWED);
                 }
 
+                $report->setViolatedDirective($report->getFallbackDirective());
                 $report = $this->resource->save($report);
             } catch (Exception $exception) {
                 throw new CouldNotSaveException(__(
