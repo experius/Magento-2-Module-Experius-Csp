@@ -24,6 +24,7 @@
         </policy>
         <policy id="script-src">
             <values>
+                <value id="paypal" type="host">*.paypal.com</value>
                 <value id="scripts_google" type="host">*.google.com</value>
                 <value id="scripts_gstatic" type="host">*.gstatic.com</value>
                 <value id="google_tagmanager" type="host">*.googletagmanager.com</value>
@@ -98,6 +99,7 @@
         </policy>
         <policy id="connect-src">
             <values>
+                <value id="paypal" type="host">*.paypal.com</value>
                 <value id="commerce_adobedc" type="host">commerce.adobedc.net</value>
                 <value id="dotmailer_comapi" type="host">api.comapi.com</value>
                 <value id="google_analytics" type="host">*.google-analytics.com</value>
