@@ -1,3 +1,48 @@
+## 2.0.3 (2022-04-15)
+
+[View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/2.0.3)
+
+*  [FEATURE][DONS-65] added paypal to whitelisting *(Dylan Maurits)*
+
+
+## 2.0.2 (2022-01-25)
+
+[View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/2.0.2)
+
+*  [BUGFIX][SUBI-320] fixed bug where FallbackDirective was not being used properly *(Dylan Maurits)*
+
+
+## 2.0.1 (2021-12-21)
+
+[View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/2.0.1)
+
+*  [FEATURE][SPC-3021] Fixed issue where count wasn't working properly. *(René Schep)*
+
+
+## 2.0.0 (2021-12-21)
+
+[View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/2.0.0)
+
+*  [FEATURE][SPC-3021] Imported more classes. Rewrote Collectors *(René Schep)*
+
+
+## 1.8.3 (2021-10-13)
+
+[View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/1.8.3)
+
+*  [FEATURE][EMGA-374] Add logic to (de-)whitelist all identical reports upon (de-)whitelist of report *(Martijn van den Kerkhof)*
+*  [FEATURE][EMGA-374] Efficiency improvements *(Martijn van den Kerkhof)*
+*  [FEATURE][EMGA-374] Remove unneccesary import *(Martijn van den Kerkhof)*
+*  [FEATURE][EMGA-374] Make method public *(Martijn van den Kerkhof)*
+
+
+## 1.8.2 (2021-10-04)
+
+[View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/1.8.2)
+
+*  [BUGFIX][SBN-216] Correct img-src 'data' policy in amasty base *(Matthijs Breed)*
+
+
 ## 1.8.1 (2021-09-16)
 
 [View Release](git@github.com:experius/Magento-2-Module-Experius-Csp.git/commits/tag/1.8.1)
