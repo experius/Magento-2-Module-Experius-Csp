@@ -71,7 +71,11 @@ class ReportActions extends Column
         if (isset($dataSource['data']['items'])) {
             foreach ($dataSource['data']['items'] as & $item) {
                 if (isset($item['report_id'])) {
-                    $hostSource = $this->reportRepository->extractHostSource($item['blocked_uri']);
+                    if ($item['blocked_uri']) {
+                        $hostSource = $this->reportRepository->extractHostSource($item['blocked_uri']);
+                    } else {
+                        $hostSource = 'no uri';
+                    }
                     $item[$this->getData('name')] = [
                         'view' => [
                             'href' => $this->urlBuilder->getUrl(
